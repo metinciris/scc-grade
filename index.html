@@ -1,0 +1,2211 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Organ Sistemlerine Göre SCC İsimlendirme ve Gradeleme</title>
+<style>
+  :root {
+    --bg:#f6f7fb;
+    --panel:#ffffff;
+    --panel2:#f0f3f8;
+    --text:#151821;
+    --muted:#5d6575;
+    --line:#d7dce7;
+    --accent:#0b63ce;
+    --accent2:#8b5cf6;
+    --good:#1c8b4b;
+    --warn:#b26a00;
+    --bad:#b42318;
+    --none:#687385;
+    --shadow:0 18px 55px rgba(18, 29, 54, .10);
+    --radius:18px;
+  }
+
+  body.dark {
+    --bg:#0f1218;
+    --panel:#171b24;
+    --panel2:#202633;
+    --text:#eef2f8;
+    --muted:#a8b1c1;
+    --line:#303849;
+    --accent:#75c8ff;
+    --accent2:#c4a6ff;
+    --good:#86e7a8;
+    --warn:#ffd37a;
+    --bad:#ff9b9b;
+    --none:#9aa5b6;
+    --shadow:0 18px 60px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing:border-box; }
+
+  body {
+    margin:0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+      radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 16%, transparent), transparent 34%),
+      radial-gradient(circle at bottom right, color-mix(in srgb, var(--accent2) 12%, transparent), transparent 36%),
+      var(--bg);
+    color:var(--text);
+    min-height:100vh;
+  }
+
+  header {
+    position:sticky;
+    top:0;
+    z-index:30;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom:1px solid var(--line);
+    padding:18px 22px;
+  }
+
+  .head-inner {
+    max-width:1560px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: 1fr auto;
+    gap:16px;
+    align-items:center;
+  }
+
+  h1 {
+    margin:0 0 7px;
+    font-size:clamp(24px, 4vw, 42px);
+    letter-spacing:-.04em;
+    line-height:1.05;
+  }
+
+  .subtitle {
+    margin:0;
+    color:var(--muted);
+    max-width:1000px;
+    line-height:1.55;
+    font-size:14.5px;
+  }
+
+  .top-actions {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  button, .pdf-link {
+    font:inherit;
+  }
+
+  .theme-btn, .small-btn {
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    border-radius:999px;
+    padding:9px 12px;
+    cursor:pointer;
+  }
+
+  .theme-btn:hover, .small-btn:hover {
+    background:var(--panel2);
+  }
+
+  .layout {
+    max-width:1560px;
+    margin:0 auto;
+    padding:18px;
+    display:grid;
+    grid-template-columns: 380px minmax(0, 1fr);
+    gap:18px;
+  }
+
+  aside {
+    background: color-mix(in srgb, var(--panel) 94%, transparent);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    border-radius:var(--radius);
+    padding:14px;
+    position:sticky;
+    top:102px;
+    max-height: calc(100vh - 120px);
+    overflow:auto;
+  }
+
+  .search {
+    width:100%;
+    border:1px solid var(--line);
+    background:var(--panel2);
+    color:var(--text);
+    border-radius:14px;
+    padding:12px 13px;
+    outline:none;
+    margin-bottom:10px;
+  }
+
+  .search:focus {
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  .filters {
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+  }
+
+  .filter {
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--muted);
+    border-radius:999px;
+    padding:7px 10px;
+    cursor:pointer;
+    font-size:12px;
+  }
+
+  .filter.active {
+    border-color:var(--accent);
+    color:var(--text);
+    background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  }
+
+  details.group {
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:15px;
+    margin:9px 0;
+    overflow:hidden;
+  }
+
+  details.group[open] {
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+  }
+
+  summary {
+    list-style:none;
+    cursor:pointer;
+    padding:10px 12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+  }
+
+  summary::-webkit-details-marker { display:none; }
+
+  .group-count {
+    color:var(--muted);
+    font-size:12px;
+    font-weight:500;
+  }
+
+  .protocol-list {
+    border-top:1px solid var(--line);
+    padding:6px;
+  }
+
+  .nav-item {
+    width:100%;
+    border:1px solid transparent;
+    background:transparent;
+    color:var(--text);
+    padding:9px;
+    border-radius:12px;
+    cursor:pointer;
+    text-align:left;
+    display:grid;
+    grid-template-columns: 1fr auto;
+    gap:8px;
+    align-items:start;
+    margin:2px 0;
+  }
+
+  .nav-item:hover {
+    background:var(--panel2);
+  }
+
+  .nav-item.active {
+    border-color:color-mix(in srgb, var(--accent) 40%, transparent);
+    background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  }
+
+  .nav-title {
+    font-size:13.5px;
+    line-height:1.35;
+    font-weight:650;
+  }
+
+  .nav-date {
+    display:block;
+    color:var(--muted);
+    font-size:11.5px;
+    margin-top:3px;
+  }
+
+  .pill {
+    display:inline-flex;
+    align-items:center;
+    white-space:nowrap;
+    border-radius:999px;
+    padding:4px 7px;
+    font-size:11px;
+    border:1px solid var(--line);
+    color:var(--muted);
+  }
+
+  .pill.scc-var { color:var(--good); border-color:color-mix(in srgb, var(--good) 45%, transparent); }
+  .pill.scc-nadir { color:var(--warn); border-color:color-mix(in srgb, var(--warn) 45%, transparent); }
+  .pill.scc-yok { color:var(--none); border-color:color-mix(in srgb, var(--none) 35%, transparent); }
+
+  main { min-width:0; }
+
+  .hero {
+    background: color-mix(in srgb, var(--panel) 94%, transparent);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-bottom:18px;
+  }
+
+  .kicker {
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:.11em;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:8px;
+  }
+
+  .title-row {
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+
+  .organ-title {
+    margin:0;
+    font-size:clamp(26px, 4vw, 44px);
+    letter-spacing:-.04em;
+    line-height:1.06;
+  }
+
+  .pdf-link {
+    color:var(--panel);
+    background:var(--accent);
+    border:1px solid color-mix(in srgb, var(--accent) 80%, black);
+    text-decoration:none;
+    border-radius:999px;
+    padding:10px 14px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+
+  .pdf-link:hover {
+    filter:brightness(.98);
+  }
+
+  .summary {
+    color:var(--muted);
+    line-height:1.7;
+    font-size:16px;
+    max-width:980px;
+    margin:12px 0 0;
+  }
+
+  .badges {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:16px;
+  }
+
+  .badge {
+    display:inline-flex;
+    border:1px solid var(--line);
+    background:var(--panel2);
+    border-radius:999px;
+    padding:7px 10px;
+    font-size:12.5px;
+    color:var(--text);
+  }
+
+  .badge.good { color:var(--good); border-color:color-mix(in srgb, var(--good) 45%, transparent); }
+  .badge.warn { color:var(--warn); border-color:color-mix(in srgb, var(--warn) 45%, transparent); }
+  .badge.bad { color:var(--bad); border-color:color-mix(in srgb, var(--bad) 45%, transparent); }
+  .badge.purple { color:var(--accent2); border-color:color-mix(in srgb, var(--accent2) 45%, transparent); }
+  .badge.none { color:var(--none); border-color:color-mix(in srgb, var(--none) 35%, transparent); }
+
+  .cards {
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap:18px;
+  }
+
+  .card {
+    background: color-mix(in srgb, var(--panel) 94%, transparent);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    border-radius:var(--radius);
+    padding:18px;
+    min-width:0;
+  }
+
+  .card h2 {
+    margin:0 0 12px;
+    font-size:18px;
+    letter-spacing:-.02em;
+  }
+
+  ul {
+    margin:0;
+    padding-left:20px;
+  }
+
+  li {
+    margin:8px 0;
+    line-height:1.55;
+  }
+
+  .callout {
+    border-left:4px solid var(--warn);
+    background: color-mix(in srgb, var(--warn) 12%, var(--panel));
+    border-radius:13px;
+    padding:14px;
+    line-height:1.65;
+  }
+
+  .report {
+    position:relative;
+    background: color-mix(in srgb, var(--panel2) 75%, #000 25%);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px;
+    color:var(--text);
+    white-space:pre-wrap;
+    font: 13.5px/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    overflow:auto;
+  }
+
+  .copy {
+    position:absolute;
+    right:10px;
+    top:10px;
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--text);
+    border-radius:10px;
+    padding:6px 8px;
+    cursor:pointer;
+    font-size:12px;
+  }
+
+  .meta-line {
+    color:var(--muted);
+    font-size:13px;
+    margin-top:8px;
+    line-height:1.5;
+  }
+
+  footer {
+    max-width:1560px;
+    margin:0 auto 26px;
+    padding:0 18px;
+  }
+
+  .foot {
+    background: color-mix(in srgb, var(--panel) 94%, transparent);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 16px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+  }
+
+  .hidden { display:none !important; }
+
+  @media (max-width: 1050px) {
+    .layout { grid-template-columns:1fr; }
+    aside { position:static; max-height:none; }
+    .cards { grid-template-columns:1fr; }
+    .head-inner { grid-template-columns:1fr; }
+    .top-actions { justify-content:flex-start; }
+    .title-row { flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+<!-- Yayın notu: Bu sayfa özgün bir eğitim/navigasyon aracıdır; herhangi bir mesleki kuruluşun resmi ürünü veya onaylı yayını değildir. -->
+<header>
+  <div class="head-inner">
+    <div>
+      <h1>Organ Sistemlerine Göre SCC İsimlendirme ve Gradeleme</h1>
+      <p class="subtitle">
+        Sol menü organ/sistem gruplarına göre düzenlenmiştir. Yalnızca SCC içeren veya SCC açısından pratikte özel/nadir bağlamı olan başlıklar gösterilir. Dış PDF bağlantıları
+        yüklenen güncel protokol listesinden alınmıştır.
+      </p>
+    </div>
+    <div class="top-actions">
+      <button class="theme-btn" id="themeBtn" type="button">🌙 Koyu mod</button>
+      <button class="small-btn" id="openAll" type="button">Tümünü aç</button>
+      <button class="small-btn" id="closeAll" type="button">Kapat</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside>
+    <input id="search" class="search" type="search" placeholder="Organ, protokol veya SCC tipi ara..." />
+    <div class="filters">
+      <button class="filter active" data-filter="all">Tümü</button>
+      <button class="filter" data-filter="scc-var">SCC var</button>
+      <button class="filter" data-filter="scc-nadir">SCC nadir</button>
+      <button class="filter" data-filter="hpv">HPV eksenli</button>
+      <button class="filter" data-filter="grade-core">Grade önemli</button>
+    </div>
+    <div id="nav"></div>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div class="kicker" id="groupName"></div>
+      <div class="title-row">
+        <h2 class="organ-title" id="protocolTitle"></h2>
+        <a class="pdf-link" id="pdfLink" href="#" target="_blank" rel="noopener">Resmî PDF</a>
+      </div>
+      <p class="summary" id="summary"></p>
+      <div class="badges" id="badges"></div>
+      <div class="meta-line" id="pdfMeta"></div>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h2>İsimlendirme ekseni</h2>
+        <ul id="naming"></ul>
+      </div>
+      <div class="card">
+        <h2>SCC alt tipleri / varyantlar</h2>
+        <ul id="subtypes"></ul>
+      </div>
+      <div class="card">
+        <h2>Derecelendirme özellikleri</h2>
+        <ul id="grading"></ul>
+      </div>
+      <div class="card">
+        <h2>Pratik not</h2>
+        <div class="callout" id="note"></div>
+      </div>
+      <div class="card">
+        <h2>Rapor dili örneği</h2>
+        <div class="report"><button class="copy" id="copyBtn" type="button">Kopyala</button><span id="report"></span></div>
+      </div>
+      <div class="card">
+        <h2>Hızlı yorum</h2>
+        <ul id="quick"></ul>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="foot">
+    <b>Hatırlatma:</b> Bu araç pratik rapor dili için özgün özet/navigasyon sayfasıdır. Dış bağlantılar ilgili resmî PDF kaynaklarına gider;
+    histolojik tip listesi ve zorunlu alanlar için ilgili kaynak kontrol edilmelidir. Herhangi bir mesleki kuruluşla bağlantı/endorsement iddiası taşımaz. Keratinizasyonu not et; ama raporu keratine teslim etme.
+  </div>
+</footer>
+
+<script>
+const DATA = [
+  {
+    "group": "Breast",
+    "title": "Breast Invasive, Biopsy",
+    "date": "June 2026",
+    "href": "https://documents.cap.org/protocols/Breast.Invasive.Bx_1.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Memede saf primer SCC çok nadirdir; çoğu pratikte metaplastik karsinom/squamöz diferansiyasyon bağlamında düşünülür.",
+    "naming": [
+      "Metaplastik karsinom, skuamöz diferansiyasyonlu",
+      "Primer saf meme SCC çok nadir ve dışlama tanısıdır."
+    ],
+    "subtypes": [
+      "Metaplastik carcinoma with squamous differentiation",
+      "Pure squamous cell carcinoma of breast çok nadir",
+      "Adenosquamous carcinoma"
+    ],
+    "grading": [
+      "Meme invaziv karsinom grade sistemi bağlama göre kullanılır.",
+      "SCC grade’i organın klasik SCC grade’i gibi ele alınmamalıdır."
+    ],
+    "note": "Memede SCC yazarken deri/metastaz ve metaplastik karsinom dosyasını açmadan kapatma.",
+    "report": "Metaplastik karsinom, skuamöz diferansiyasyonlu\nHistolojik grade: ...",
+    "id": "p0"
+  },
+  {
+    "group": "Breast",
+    "title": "Breast Invasive, Resection",
+    "date": "June 2026",
+    "href": "https://documents.cap.org/protocols/Breast.Invasive.Res_4.11.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Memede saf primer SCC çok nadirdir; çoğu pratikte metaplastik karsinom/squamöz diferansiyasyon bağlamında düşünülür.",
+    "naming": [
+      "Metaplastik karsinom, skuamöz diferansiyasyonlu",
+      "Primer saf meme SCC çok nadir ve dışlama tanısıdır."
+    ],
+    "subtypes": [
+      "Metaplastik carcinoma with squamous differentiation",
+      "Pure squamous cell carcinoma of breast çok nadir",
+      "Adenosquamous carcinoma"
+    ],
+    "grading": [
+      "Meme invaziv karsinom grade sistemi bağlama göre kullanılır.",
+      "SCC grade’i organın klasik SCC grade’i gibi ele alınmamalıdır."
+    ],
+    "note": "Memede SCC yazarken deri/metastaz ve metaplastik karsinom dosyasını açmadan kapatma.",
+    "report": "Metaplastik karsinom, skuamöz diferansiyasyonlu\nHistolojik grade: ...",
+    "id": "p1"
+  },
+  {
+    "group": "Gynecologic",
+    "title": "Uterine Cervix, Excision",
+    "date": "March 2023",
+    "href": "https://documents.cap.org/documents/Cervix.Bx_4.4.2.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-onerilmez",
+    "hpv": true,
+    "summary": "Servikste güncel ana eksen HPV-associated / HPV-independent / NOS ayrımıdır. Keratinize-nonkeratinize dili artık merkezde değildir.",
+    "naming": [
+      "Skuamöz hücreli karsinom, HPV-associated",
+      "Skuamöz hücreli karsinom, HPV-independent",
+      "Skuamöz hücreli karsinom, NOS",
+      "p16/HPV sınıflamada yardımcıdır."
+    ],
+    "subtypes": [
+      "HPV-associated SCC",
+      "HPV-independent SCC",
+      "SCC, NOS",
+      "Keratinize/nonkeratinize morfoloji yalnızca ek bilgi olarak belirtilebilir."
+    ],
+    "grading": [
+      "Yerleşik ve güçlü bir rutin grade sistemi yoktur.",
+      "Keratinizasyonu iyi diferansiyasyon gibi okumak servikste yanıltıcı olabilir.",
+      "Grade zorunlu/merkezi değildir."
+    ],
+    "note": "Servikste “keratinize, iyi diferansiye SCC” kulağa klasik gelir ama güncel sınıflama dilinin merkezinde değildir.",
+    "report": "Skuamöz hücreli karsinom, HPV-associated\n\nHPV/p16 çalışılamadıysa:\nSkuamöz hücreli karsinom, NOS",
+    "id": "p11"
+  },
+  {
+    "group": "Gynecologic",
+    "title": "Uterine Cervix, Resection",
+    "date": "April 2023",
+    "href": "https://documents.cap.org/documents/Cervix_5.1.1.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-onerilmez",
+    "hpv": true,
+    "summary": "Servikste güncel ana eksen HPV-associated / HPV-independent / NOS ayrımıdır. Keratinize-nonkeratinize dili artık merkezde değildir.",
+    "naming": [
+      "Skuamöz hücreli karsinom, HPV-associated",
+      "Skuamöz hücreli karsinom, HPV-independent",
+      "Skuamöz hücreli karsinom, NOS",
+      "p16/HPV sınıflamada yardımcıdır."
+    ],
+    "subtypes": [
+      "HPV-associated SCC",
+      "HPV-independent SCC",
+      "SCC, NOS",
+      "Keratinize/nonkeratinize morfoloji yalnızca ek bilgi olarak belirtilebilir."
+    ],
+    "grading": [
+      "Yerleşik ve güçlü bir rutin grade sistemi yoktur.",
+      "Keratinizasyonu iyi diferansiyasyon gibi okumak servikste yanıltıcı olabilir.",
+      "Grade zorunlu/merkezi değildir."
+    ],
+    "note": "Servikste “keratinize, iyi diferansiye SCC” kulağa klasik gelir ama güncel sınıflama dilinin merkezinde değildir.",
+    "report": "Skuamöz hücreli karsinom, HPV-associated\n\nHPV/p16 çalışılamadıysa:\nSkuamöz hücreli karsinom, NOS",
+    "id": "p12"
+  },
+  {
+    "group": "Gynecologic",
+    "title": "Vagina, Biopsy",
+    "date": "June 2021",
+    "href": "https://documents.cap.org/protocols/Vagina.Bx_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": true,
+    "summary": "Vajende SCC pratikte HPV ilişkili alan mantığıyla düşünülür; serviks/vulva ile komşuluk ve primerlik önemlidir.",
+    "naming": [
+      "Vajinal skuamöz hücreli karsinom",
+      "HPV ilişkisi değerlendirilebilir.",
+      "Serviks/vulvadan yayılım dışlanmalıdır."
+    ],
+    "subtypes": [
+      "HPV-associated SCC",
+      "HPV-independent/keratinize paternler",
+      "Verrüköz/bazaloid özellikler"
+    ],
+    "grading": [
+      "Grade verilebilir ama HPV ilişkisi ve primerlik daha öncelikli olabilir.",
+      "Keratinizasyon tek başına biyolojik yorum için yeterli değildir."
+    ],
+    "note": "Vajende tanı koyarken organ sınırları bazen mikroskoptan daha çok klinik dosyada çözülür.",
+    "report": "Vajinal skuamöz hücreli karsinom\nHPV ilişkisi: ...\nHistolojik grade: ...",
+    "id": "p13"
+  },
+  {
+    "group": "Gynecologic",
+    "title": "Vagina, Resection",
+    "date": "November 2021",
+    "href": "https://documents.cap.org/protocols/Vagina_4.3.0.1.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": true,
+    "summary": "Vajende SCC pratikte HPV ilişkili alan mantığıyla düşünülür; serviks/vulva ile komşuluk ve primerlik önemlidir.",
+    "naming": [
+      "Vajinal skuamöz hücreli karsinom",
+      "HPV ilişkisi değerlendirilebilir.",
+      "Serviks/vulvadan yayılım dışlanmalıdır."
+    ],
+    "subtypes": [
+      "HPV-associated SCC",
+      "HPV-independent/keratinize paternler",
+      "Verrüköz/bazaloid özellikler"
+    ],
+    "grading": [
+      "Grade verilebilir ama HPV ilişkisi ve primerlik daha öncelikli olabilir.",
+      "Keratinizasyon tek başına biyolojik yorum için yeterli değildir."
+    ],
+    "note": "Vajende tanı koyarken organ sınırları bazen mikroskoptan daha çok klinik dosyada çözülür.",
+    "report": "Vajinal skuamöz hücreli karsinom\nHPV ilişkisi: ...\nHistolojik grade: ...",
+    "id": "p14"
+  },
+  {
+    "group": "Gynecologic",
+    "title": "Vulva",
+    "date": "June 2024",
+    "href": "https://documents.cap.org/protocols/Vulva_5.1.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-onerilmez",
+    "hpv": true,
+    "summary": "Vulvada HPV-associated / HPV-independent ayrımı önemlidir. HPV-independent tümörler keratinize ve iyi diferansiye görünebilir ama daha iyi biyoloji anlamına gelmeyebilir.",
+    "naming": [
+      "Skuamöz hücreli karsinom, HPV-associated",
+      "Skuamöz hücreli karsinom, HPV-independent",
+      "SCC, NOS",
+      "p16 ve p53 yardımcıdır."
+    ],
+    "subtypes": [
+      "HPV-associated bazaloid/warty patern",
+      "HPV-independent keratinize/usual type",
+      "Verrüköz SCC",
+      "Sarkomatoid varyantlar"
+    ],
+    "grading": [
+      "Standart ve uzlaşılı prognostik grade sistemi güçlü değildir.",
+      "Grade çoğu protokol/pratikte opsiyonel veya sınırlı değerdedir.",
+      "HPV-independent olgularda mevcut grade sistemleri yetersiz kalabilir."
+    ],
+    "note": "Vulvada iyi diferansiye görünüm raporu okuyanı rahatlatmasın; biyoloji her zaman uslu değildir.",
+    "report": "Skuamöz hücreli karsinom, HPV-independent\np53: aberrant patern\np16: negatif/fokal",
+    "id": "p15"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Anus, Excision",
+    "date": "September 2023",
+    "href": "https://documents.cap.org/protocols/Anus.Bx.TDE_5.0.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": true,
+    "summary": "Anal kanalda eski large cell keratinizing / nonkeratinizing / basaloid ayrımı geri plandadır. Genel SCC tanısı tercih edilir.",
+    "naming": [
+      "Skuamöz hücreli karsinom",
+      "Keratinizasyon veya bazaloid özellikler yorumda belirtilebilir.",
+      "HPV ilişkisi biyolojik olarak önemlidir."
+    ],
+    "subtypes": [
+      "SCC",
+      "Bazaloid özellikli SCC",
+      "Keratinizasyon gösteren SCC",
+      "Eski large cell keratinizing/nonkeratinizing terminolojisi rutin merkezde değildir."
+    ],
+    "grading": [
+      "Alt tiplerin tekrarlanabilirliği ve prognostik ayrımı sınırlıdır.",
+      "Grade raporlanabilir ama isimlendirme eski keratinizasyon alt tiplerine teslim edilmemelidir."
+    ],
+    "note": "Anal kanalda eski alt tip isimleri kulağa düzenli gelir ama biyoloji o kadar düzenli değildir.",
+    "report": "Skuamöz hücreli karsinom\n\nYorum: Bazaloid özellikler ve fokal keratinizasyon izlenmiştir.",
+    "id": "p16"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Anus, Resection",
+    "date": "June 2022",
+    "href": "https://documents.cap.org/protocols/Anus_5.0.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": true,
+    "summary": "Anal kanalda eski large cell keratinizing / nonkeratinizing / basaloid ayrımı geri plandadır. Genel SCC tanısı tercih edilir.",
+    "naming": [
+      "Skuamöz hücreli karsinom",
+      "Keratinizasyon veya bazaloid özellikler yorumda belirtilebilir.",
+      "HPV ilişkisi biyolojik olarak önemlidir."
+    ],
+    "subtypes": [
+      "SCC",
+      "Bazaloid özellikli SCC",
+      "Keratinizasyon gösteren SCC",
+      "Eski large cell keratinizing/nonkeratinizing terminolojisi rutin merkezde değildir."
+    ],
+    "grading": [
+      "Alt tiplerin tekrarlanabilirliği ve prognostik ayrımı sınırlıdır.",
+      "Grade raporlanabilir ama isimlendirme eski keratinizasyon alt tiplerine teslim edilmemelidir."
+    ],
+    "note": "Anal kanalda eski alt tip isimleri kulağa düzenli gelir ama biyoloji o kadar düzenli değildir.",
+    "report": "Skuamöz hücreli karsinom\n\nYorum: Bazaloid özellikler ve fokal keratinizasyon izlenmiştir.",
+    "id": "p17"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Distal Extrahepatic Bile Ducts",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/BileDuctDE_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p19"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Small Intestine, Resection",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Small_Int_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p25"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Intrahepatic Bile Ducts",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/BileDuctIH_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p26"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Colon and Rectum Biomarker Reporting",
+    "date": "June 2021",
+    "href": "https://documents.cap.org/protocols/ColoRectal.Bmk_1.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p27"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Colon and Rectum, Biopsy",
+    "date": "December 2023",
+    "href": "https://documents.cap.org/protocols/ColoRectal.Bx_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p28"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Colon & Rectum, Resection",
+    "date": "September 2025",
+    "href": "https://documents.cap.org/protocols/ColoRectal_4.4.0.1.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p29"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Stomach, Resection",
+    "date": "March 2023",
+    "href": "https://documents.cap.org/documents/Stomach_4.4.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p30"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Pancreas (Exocrine)",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Panc.Exo_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p31"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Perihilar Bile Ducts",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/BileDuctPH_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p32"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Gallbladder",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Gallbladder_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Saf SCC veya adenoskuamöz karsinom safra kesesinde nadirdir; ilgili safra kesesi protokolü içinde histolojik tip olarak yakalanabilir.",
+    "naming": [
+      "Safra kesesi karsinomu",
+      "Adenoskuamöz karsinom",
+      "Skuamöz hücreli karsinom çok nadir"
+    ],
+    "subtypes": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC",
+      "Poorly differentiated carcinoma with squamous features"
+    ],
+    "grading": [
+      "Standart SCC grade yaklaşımı rutin ana eksen değildir.",
+      "Histolojik tip ve evre daha belirleyicidir."
+    ],
+    "note": "Safra kesesinde skuamöz morfoloji varsa adenokarsinom komponentini ve adenoskuamöz olasılığını iyi ara.",
+    "report": "Safra kesesi karsinomu, adenoskuamöz tip\nveya\nSkuamöz hücreli karsinom",
+    "id": "p33"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Ampulla of Vater",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Ampulla_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p34"
+  },
+  {
+    "group": "Gastrointestinal",
+    "title": "Esophagus",
+    "date": "June 2022",
+    "href": "https://documents.cap.org/protocols/Esophagus_4.2.0.1.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-core",
+    "hpv": false,
+    "summary": "Özofagusta klasik G1-G2-G3 grade hâlâ önemlidir. Keratinizasyon grade’in gerçek parçasıdır.",
+    "naming": [
+      "Skuamöz hücreli karsinom",
+      "Bazaloid SCC",
+      "Verrüköz SCC",
+      "Spindle cell / sarkomatoid karsinom"
+    ],
+    "subtypes": [
+      "Konvansiyonel SCC",
+      "Bazaloid SCC",
+      "Verrüköz SCC",
+      "Spindle cell carcinoma"
+    ],
+    "grading": [
+      "G1-G2-G3 kullanılır.",
+      "Keratin incileri, sitolojik atipi, mitoz ve bazaloid hücre oranı değerlendirilir.",
+      "Heterojen tümörde en kötü alan önemlidir."
+    ],
+    "note": "Özofagusta keratinizasyon gerçekten grade masasındadır.",
+    "report": "Skuamöz hücreli karsinom\nHistolojik grade: G2",
+    "id": "p35"
+  },
+  {
+    "group": "Endocrine and Neuroendocrine",
+    "title": "Duodenum and Ampulla NET, Resection",
+    "date": "June 2024",
+    "href": "https://documents.cap.org/protocols/DuodAmp.NET_2.0.0.1.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p38"
+  },
+  {
+    "group": "Endocrine and Neuroendocrine",
+    "title": "Colon and Rectum NET, Resection",
+    "date": "December 2023",
+    "href": "https://documents.cap.org/protocols/ColoRectal.NET_5.0.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p40"
+  },
+  {
+    "group": "Endocrine and Neuroendocrine",
+    "title": "Stomach NET, Resection",
+    "date": "December 2023",
+    "href": "https://documents.cap.org/protocols/Stomach.NET_5.0.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p41"
+  },
+  {
+    "group": "Endocrine and Neuroendocrine",
+    "title": "Pancreas NET, Resection",
+    "date": "June 2024",
+    "href": "https://documents.cap.org/protocols/Panc.Endo_5.0.1.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
+    "naming": [
+      "Adenoskuamöz karsinom",
+      "Saf SCC çok nadir",
+      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
+    ],
+    "subtypes": [
+      "Adenosquamous carcinoma",
+      "Squamous cell carcinoma çok nadir",
+      "Poorly differentiated carcinoma with squamous differentiation"
+    ],
+    "grading": [
+      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+    ],
+    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
+    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
+    "id": "p42"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Kidney, Biopsy",
+    "date": "June 2026",
+    "href": "https://documents.cap.org/protocols/Kidney.Bx_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Böbrek parankim protokolleri RCC odaklıdır. SCC daha çok renal pelvis/üreter protokolü veya metastaz/komşuluk bağlamında düşünülür.",
+    "naming": [
+      "Renal parankimde primer SCC beklenen rutin tanı değildir.",
+      "Renal pelvis kaynaklı SCC için üst üriner sistem protokolü daha uygundur."
+    ],
+    "subtypes": [
+      "Metastatik SCC",
+      "Renal pelvis/üreter kaynaklı SCC",
+      "RCC içinde skuamöz metaplazi değil; dikkatli ayırıcı tanı gerekir."
+    ],
+    "grading": [
+      "RCC grade sistemleri SCC için uygulanmaz.",
+      "Primerlik ve kaynak belirleme daha önemlidir."
+    ],
+    "note": "Böbrekte SCC görürsen önce “nereden geliyor?” sorusu, “grade kaç?” sorusundan önce gelir.",
+    "report": "Böbrekte skuamöz morfolojili malign tümör\nRenal pelvis/üreter kaynaklı veya metastatik SCC açısından değerlendirilmelidir.",
+    "id": "p47"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Kidney, Resection",
+    "date": "June 2026",
+    "href": "https://documents.cap.org/protocols/Kidney_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Böbrek parankim protokolleri RCC odaklıdır. SCC daha çok renal pelvis/üreter protokolü veya metastaz/komşuluk bağlamında düşünülür.",
+    "naming": [
+      "Renal parankimde primer SCC beklenen rutin tanı değildir.",
+      "Renal pelvis kaynaklı SCC için üst üriner sistem protokolü daha uygundur."
+    ],
+    "subtypes": [
+      "Metastatik SCC",
+      "Renal pelvis/üreter kaynaklı SCC",
+      "RCC içinde skuamöz metaplazi değil; dikkatli ayırıcı tanı gerekir."
+    ],
+    "grading": [
+      "RCC grade sistemleri SCC için uygulanmaz.",
+      "Primerlik ve kaynak belirleme daha önemlidir."
+    ],
+    "note": "Böbrekte SCC görürsen önce “nereden geliyor?” sorusu, “grade kaç?” sorusundan önce gelir.",
+    "report": "Böbrekte skuamöz morfolojili malign tümör\nRenal pelvis/üreter kaynaklı veya metastatik SCC açısından değerlendirilmelidir.",
+    "id": "p48"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Urinary Bladder, Biopsy",
+    "date": "June 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Bladder.Bx.TURBT_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Mesanede saf SCC ile ürotelyal karsinomda skuamöz diferansiyasyon ayrımı kritiktir. Keratinizasyon tanısal kanıt olabilir.",
+    "naming": [
+      "Saf skuamöz hücreli karsinom",
+      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
+      "Saf SCC için ürotelyal komponent dışlanır."
+    ],
+    "subtypes": [
+      "Saf SCC",
+      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
+      "Verrüköz/papiller skuamöz paternler nadir"
+    ],
+    "grading": [
+      "Ürotelyal karsinomda düşük/yüksek grade sistemi ayrıdır.",
+      "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
+      "Keratinizasyon ve intersellüler köprüleşme skuamöz diferansiyasyon kanıtıdır."
+    ],
+    "note": "Mesanede asıl soru çoğu zaman saf SCC mi, yoksa skuamöz diferansiyasyonlu ürotelyal karsinom mu sorusudur.",
+    "report": "Ürotelyal karsinom, yüksek dereceli,\nskuamöz diferansiyasyonlu\n\nveya\n\nSkuamöz hücreli karsinom",
+    "id": "p49"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Urinary Bladder, Resection",
+    "date": "September 2023",
+    "href": "https://documents.cap.org/protocols/Bladder_4.2.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Mesanede saf SCC ile ürotelyal karsinomda skuamöz diferansiyasyon ayrımı kritiktir. Keratinizasyon tanısal kanıt olabilir.",
+    "naming": [
+      "Saf skuamöz hücreli karsinom",
+      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
+      "Saf SCC için ürotelyal komponent dışlanır."
+    ],
+    "subtypes": [
+      "Saf SCC",
+      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
+      "Verrüköz/papiller skuamöz paternler nadir"
+    ],
+    "grading": [
+      "Ürotelyal karsinomda düşük/yüksek grade sistemi ayrıdır.",
+      "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
+      "Keratinizasyon ve intersellüler köprüleşme skuamöz diferansiyasyon kanıtıdır."
+    ],
+    "note": "Mesanede asıl soru çoğu zaman saf SCC mi, yoksa skuamöz diferansiyasyonlu ürotelyal karsinom mu sorusudur.",
+    "report": "Ürotelyal karsinom, yüksek dereceli,\nskuamöz diferansiyasyonlu\n\nveya\n\nSkuamöz hücreli karsinom",
+    "id": "p50"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Penis",
+    "date": "September 2023",
+    "href": "https://documents.cap.org/protocols/Penis_4.2.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-core",
+    "hpv": true,
+    "summary": "Peniste WHO 2022 HPV-associated / HPV-independent kümelenmeyi öne çıkarır. Grade özellikle rezeksiyonda hâlâ raporlanabilir.",
+    "naming": [
+      "SCC, HPV-associated",
+      "SCC, HPV-independent",
+      "SCC, NOS",
+      "HPV durumu belirlenemiyorsa NOS kabul edilebilir."
+    ],
+    "subtypes": [
+      "HPV-associated: basaloid, warty, clear cell, lymphoepithelial-like",
+      "HPV-independent: usual type, verrüköz, papiller, sarkomatoid",
+      "Karışık paternler"
+    ],
+    "grading": [
+      "G1-G2-G3 verilebilir.",
+      "Sarkomatoid alan ayrıca belirtilir.",
+      "HPV ilişkisi ile grade birlikte düşünülür."
+    ],
+    "note": "Peniste iki soru birlikte sorulur: HPV ilişkisi nedir, grade nedir?",
+    "report": "Skuamöz hücreli karsinom, HPV-independent, usual type\nHistolojik grade: G2",
+    "id": "p51"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Prostate Needle Biopsy Case Level",
+    "date": "September 2023",
+    "href": "https://documents.cap.org/protocols/Prostate.Needle.Specimen.Bx_1.1.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
+    "naming": [
+      "Primer prostat SCC çok nadir",
+      "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
+    ],
+    "subtypes": [
+      "Saf SCC",
+      "Adenoskuamöz karsinom",
+      "Tedavi sonrası skuamöz transdiferansiyasyon olasılığı"
+    ],
+    "grading": [
+      "Gleason sistemi uygulanmaz.",
+      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
+    ],
+    "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
+    "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
+    "id": "p52"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Prostate Needle Biopsy Specimen Level",
+    "date": "September 2023",
+    "href": "https://documents.cap.org/protocols/Prostate.Needle.Specimen.Bx_1.1.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
+    "naming": [
+      "Primer prostat SCC çok nadir",
+      "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
+    ],
+    "subtypes": [
+      "Saf SCC",
+      "Adenoskuamöz karsinom",
+      "Tedavi sonrası skuamöz transdiferansiyasyon olasılığı"
+    ],
+    "grading": [
+      "Gleason sistemi uygulanmaz.",
+      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
+    ],
+    "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
+    "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
+    "id": "p53"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Prostate TURP",
+    "date": "September 2023",
+    "href": "https://documents.cap.org/protocols/Prostate.TURP_4.2.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
+    "naming": [
+      "Primer prostat SCC çok nadir",
+      "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
+    ],
+    "subtypes": [
+      "Saf SCC",
+      "Adenoskuamöz karsinom",
+      "Tedavi sonrası skuamöz transdiferansiyasyon olasılığı"
+    ],
+    "grading": [
+      "Gleason sistemi uygulanmaz.",
+      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
+    ],
+    "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
+    "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
+    "id": "p54"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Prostate, Resection",
+    "date": "September 2023",
+    "href": "https://documents.cap.org/protocols/Prostate_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
+    "naming": [
+      "Primer prostat SCC çok nadir",
+      "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
+    ],
+    "subtypes": [
+      "Saf SCC",
+      "Adenoskuamöz karsinom",
+      "Tedavi sonrası skuamöz transdiferansiyasyon olasılığı"
+    ],
+    "grading": [
+      "Gleason sistemi uygulanmaz.",
+      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
+    ],
+    "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
+    "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
+    "id": "p55"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Testis Lymphadenectomy",
+    "date": "June 2024",
+    "href": "https://documents.cap.org/protocols/Testis.RPL_4.2.1.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Testiste SCC, germ hücreli tümör/teratom içinde somatik tip malignite olarak çok nadir gündeme gelebilir.",
+    "naming": [
+      "Teratom zemininde somatik tip malignite",
+      "Skuamöz hücreli karsinom komponenti çok nadir"
+    ],
+    "subtypes": [
+      "Somatic-type malignancy: SCC",
+      "Teratom ilişkili SCC"
+    ],
+    "grading": [
+      "Standart organ SCC grade sistemi ana eksen değildir.",
+      "GCT komponentleri ve somatik tip malignite ayrımı daha önemlidir."
+    ],
+    "note": "Testiste SCC varsa olay çoğu zaman bağımsız SCC değil, teratomun karanlık yanıdır.",
+    "report": "Teratom zemininde somatik tip malignite:\nSkuamöz hücreli karsinom",
+    "id": "p56"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Testis Orchiectomy",
+    "date": "March 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-March-2025/Testis_4.3.0.0.REL.CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Testiste SCC, germ hücreli tümör/teratom içinde somatik tip malignite olarak çok nadir gündeme gelebilir.",
+    "naming": [
+      "Teratom zemininde somatik tip malignite",
+      "Skuamöz hücreli karsinom komponenti çok nadir"
+    ],
+    "subtypes": [
+      "Somatic-type malignancy: SCC",
+      "Teratom ilişkili SCC"
+    ],
+    "grading": [
+      "Standart organ SCC grade sistemi ana eksen değildir.",
+      "GCT komponentleri ve somatik tip malignite ayrımı daha önemlidir."
+    ],
+    "note": "Testiste SCC varsa olay çoğu zaman bağımsız SCC değil, teratomun karanlık yanıdır.",
+    "report": "Teratom zemininde somatik tip malignite:\nSkuamöz hücreli karsinom",
+    "id": "p57"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Ureter, Renal Pelvis, Biopsy",
+    "date": "March 2025",
+    "href": "https://documents.cap.org/documents/UreterRenalPelvis.Bx_2.4.0.0.REL.CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Üst üriner sistemde SCC nadir olabilir; daha sık olarak ürotelyal karsinomda skuamöz diferansiyasyonla karşılaşılır.",
+    "naming": [
+      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
+      "Saf skuamöz hücreli karsinom",
+      "Renal pelvis/üreter primerliği değerlendirilir."
+    ],
+    "subtypes": [
+      "Yüksek dereceli ürotelyal karsinom + skuamöz diferansiyasyon",
+      "Saf SCC",
+      "Verrüköz skuamöz lezyonlar çok nadir"
+    ],
+    "grading": [
+      "Ürotelyal karsinom varsa ürotelyal grade sistemi kullanılır.",
+      "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
+      "Keratinizasyon tanısal destek sağlar."
+    ],
+    "note": "Üreter/renal pelviste skuamöz morfoloji çoğu kez kronik irritasyon ve yüksek dereceli tümör bağlamında gelir.",
+    "report": "Yüksek dereceli ürotelyal karsinom,\nskuamöz diferansiyasyonlu",
+    "id": "p58"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Ureter, Renal Pelvis, Resection",
+    "date": "March 2025",
+    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-March-2025/UreterRenalPelvis.Res_2.4.0.0.REL.CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Üst üriner sistemde SCC nadir olabilir; daha sık olarak ürotelyal karsinomda skuamöz diferansiyasyonla karşılaşılır.",
+    "naming": [
+      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
+      "Saf skuamöz hücreli karsinom",
+      "Renal pelvis/üreter primerliği değerlendirilir."
+    ],
+    "subtypes": [
+      "Yüksek dereceli ürotelyal karsinom + skuamöz diferansiyasyon",
+      "Saf SCC",
+      "Verrüköz skuamöz lezyonlar çok nadir"
+    ],
+    "grading": [
+      "Ürotelyal karsinom varsa ürotelyal grade sistemi kullanılır.",
+      "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
+      "Keratinizasyon tanısal destek sağlar."
+    ],
+    "note": "Üreter/renal pelviste skuamöz morfoloji çoğu kez kronik irritasyon ve yüksek dereceli tümör bağlamında gelir.",
+    "report": "Yüksek dereceli ürotelyal karsinom,\nskuamöz diferansiyasyonlu",
+    "id": "p59"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Urethra, Biopsy",
+    "date": "December 2024",
+    "href": "https://documents.cap.org/protocols/Urethra.Bx_4.3.0.0.REL.CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": true,
+    "summary": "Üretrada SCC anatomik segment, HPV ilişkisi ve komşu organ yayılımı ile birlikte değerlendirilir.",
+    "naming": [
+      "Üretral skuamöz hücreli karsinom",
+      "HPV ilişkili paternler",
+      "Ürotelyal/adenokarsinom ayırımı"
+    ],
+    "subtypes": [
+      "SCC",
+      "Ürotelyal karsinom",
+      "Adenokarsinom",
+      "Bazaloid/keratinize skuamöz paternler"
+    ],
+    "grading": [
+      "Grade verilebilir ama segment, invazyon ve komşu organ ilişkisi daha kritik olabilir.",
+      "HPV ilişkisi bazı distal lezyonlarda önem kazanabilir."
+    ],
+    "note": "Üretrada morfoloji kadar harita önemlidir: distal mi, proksimal mi, komşu organdan mı?",
+    "report": "Üretral skuamöz hücreli karsinom\nHistolojik grade: ...",
+    "id": "p60"
+  },
+  {
+    "group": "Genitourinary",
+    "title": "Urethra, Resection",
+    "date": "December 2024",
+    "href": "https://documents.cap.org/protocols/Urethra_4.3.0.0.REL.CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": true,
+    "summary": "Üretrada SCC anatomik segment, HPV ilişkisi ve komşu organ yayılımı ile birlikte değerlendirilir.",
+    "naming": [
+      "Üretral skuamöz hücreli karsinom",
+      "HPV ilişkili paternler",
+      "Ürotelyal/adenokarsinom ayırımı"
+    ],
+    "subtypes": [
+      "SCC",
+      "Ürotelyal karsinom",
+      "Adenokarsinom",
+      "Bazaloid/keratinize skuamöz paternler"
+    ],
+    "grading": [
+      "Grade verilebilir ama segment, invazyon ve komşu organ ilişkisi daha kritik olabilir.",
+      "HPV ilişkisi bazı distal lezyonlarda önem kazanabilir."
+    ],
+    "note": "Üretrada morfoloji kadar harita önemlidir: distal mi, proksimal mi, komşu organdan mı?",
+    "report": "Üretral skuamöz hücreli karsinom\nHistolojik grade: ...",
+    "id": "p61"
+  },
+  {
+    "group": "Thorax",
+    "title": "Lung Biomarker Reporting",
+    "date": "September 2025",
+    "href": "https://documents.cap.org/protocols/Lung.Bmk_2.2.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-yok",
+    "hpv": false,
+    "summary": "Bu protokol tanı/grade değil, akciğer biyobelirteç raporlaması içindir. SCC’de özellikle PD-L1 ve tedavi bağlamı için önemlidir.",
+    "naming": [
+      "Tanısal SCC isimlendirmesi için Lung Resection/Biopsy bağlamı kullanılır.",
+      "Bu PDF biyobelirteç raporlaması içindir."
+    ],
+    "subtypes": [
+      "SCC alt tipleri bu protokolün ana konusu değildir."
+    ],
+    "grading": [
+      "Gradeleme yok.",
+      "Biyobelirteç raporlaması tanı grade’inden ayrı düşünülür."
+    ],
+    "note": "SCC tanısını koyduk, onkoloji kapısında asıl bekleyen bazen PD-L1 olur.",
+    "report": "Akciğer SCC biyobelirteç raporlaması\nPD-L1: ...",
+    "id": "p62"
+  },
+  {
+    "group": "Thorax",
+    "title": "Lung, Resection",
+    "date": "September 2025",
+    "href": "https://documents.cap.org/protocols/Lung_5.1.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Akciğer SCC’de keratinizasyon alt tip bilgisidir; rutin oral kavite tarzı G1-G2-G3 grade merkezde değildir.",
+    "naming": [
+      "Skuamöz hücreli karsinom",
+      "Keratinize SCC",
+      "Nonkeratinize SCC",
+      "Bazaloid SCC"
+    ],
+    "subtypes": [
+      "Keratinize SCC",
+      "Nonkeratinize SCC",
+      "Bazaloid SCC",
+      "Lenfoepitelyal karsinom ilişkili nadir paternler"
+    ],
+    "grading": [
+      "Uzun süre ortak konsensus grade sistemi yoktu.",
+      "IASLC/akciğer literatüründe budding, single cell invasion, nükleer çap veya budding temelli sistemler önerilmiştir.",
+      "Bunlar önemli ama rutin rapor dilinde her merkezde yerleşik değildir."
+    ],
+    "note": "Akciğerde keratinizasyon tanıyı destekler; “keratinize = G1” refleksi doğru değildir.",
+    "report": "Skuamöz hücreli karsinom, keratinize tip\n\nKüçük biyopside:\nNon-small cell carcinoma, skuamöz hücreli karsinom lehine",
+    "id": "p63"
+  },
+  {
+    "group": "Thorax",
+    "title": "Thymus",
+    "date": "December 2024",
+    "href": "https://documents.cap.org/protocols/Thymus_5.0.0.0.REL.CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Timusta SCC, thymic carcinoma başlığı altında görülür. Keratinizasyon histolojik tip bilgisidir; klasik G1-G2-G3 SCC grade’i merkezde değildir.",
+    "naming": [
+      "Thymic carcinoma, squamous cell carcinoma type",
+      "Thymoma ile thymic carcinoma ayrımı esastır.",
+      "Primer akciğer/mediasten metastazı ayırıcı tanıya alınır."
+    ],
+    "subtypes": [
+      "Squamous cell carcinoma",
+      "Basaloid carcinoma",
+      "Lymphoepithelioma-like carcinoma",
+      "Mucoepidermoid carcinoma",
+      "Clear cell carcinoma",
+      "Sarcomatoid carcinoma",
+      "NUT carcinoma ayırıcı tanısı"
+    ],
+    "grading": [
+      "Rutin G1-G2-G3 SCC grade’i ana eksen değildir.",
+      "Histolojik tip, invazyon, kapsül/komşu organ ilişkisi, rezeksiyon sınırı ve evre daha önemlidir.",
+      "Keratinizasyon varsa thymic carcinoma-SCC tipini destekler."
+    ],
+    "note": "Timusta “SCC var mı?” sorusu genellikle “thymic carcinoma mı, thymoma mı, metastaz mı?” sorusunun içine gömülüdür.",
+    "report": "Timik karsinom, skuamöz hücreli karsinom tipi\nRezeksiyon sınırı: ...\nİnvazyon: ...",
+    "id": "p65"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "Cutaneous Carcinoma",
+    "date": "April 2026",
+    "href": "https://documents.cap.org/protocols/HN.Skin_Cutaneous_1.2.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-core",
+    "hpv": false,
+    "summary": "Baş-boyun kutanöz karsinom protokolü cSCC pratiği için kullanışlıdır. Kötü diferansiyasyon yüksek risk faktörüdür; standardizasyon yine de kusursuz değildir.",
+    "naming": [
+      "Kutanöz skuamöz hücreli karsinom",
+      "SCC in situ",
+      "İnvaziv SCC",
+      "Histolojik alt tip ve risk faktörleri birlikte değerlendirilir."
+    ],
+    "subtypes": [
+      "Konvansiyonel cSCC",
+      "Keratoakantom benzeri SCC",
+      "Akantolitik SCC",
+      "Spindle cell SCC",
+      "Verrüköz SCC",
+      "Adenoskuamöz karsinom"
+    ],
+    "grading": [
+      "G1-G2-G3 kullanılabilir.",
+      "Kötü diferansiyasyon yüksek risk faktörüdür.",
+      "Kalınlık, invazyon derinliği, PNI/LVI ve sınır bilgisi grade kadar önemlidir."
+    ],
+    "note": "Deride grade önemlidir ama raporun bütün yükünü grade’e vermek doğru değildir; derinlik ve PNI çoğu zaman daha sert konuşur.",
+    "report": "Kutanöz skuamöz hücreli karsinom\nHistolojik grade: G2\nPerinöral invazyon: yok\nLenfovasküler invazyon: yok",
+    "id": "p67"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "HPV-Independent Oropharynx and Hypopharynx",
+    "date": "April 2026",
+    "href": "https://documents.cap.org/protocols/HN.HPV-Ind_Oropharynx_Hypopharynx_1.0.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": true,
+    "summary": "HPV-independent orofarenks/hipofarenks SCC klasik baş-boyun SCC mantığına daha yakındır; grade verilebilir ama tek başına güçlü belirleyici değildir.",
+    "naming": [
+      "Skuamöz hücreli karsinom, HPV-independent",
+      "Konvansiyonel SCC",
+      "Keratinize/nonkeratinize morfoloji belirtilebilir."
+    ],
+    "subtypes": [
+      "Konvansiyonel SCC",
+      "Keratinize SCC",
+      "Nonkeratinize SCC",
+      "Bazaloid özellikli SCC",
+      "Verrüköz/papiller/sarkomatoid varyantlar"
+    ],
+    "grading": [
+      "G1-G2-G3 kullanılabilir.",
+      "Ancak invazyon paterni, tümör budding ve cell nest size literatürde prognostik olarak öne çıkmıştır."
+    ],
+    "note": "HPV-negatif alanda grade daha anlamlıdır ama raporun tüm yükünü grade’e vermemek gerekir.",
+    "report": "Skuamöz hücreli karsinom, HPV-independent\nHistolojik grade: G2",
+    "id": "p68"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "HPV-Associated Oropharynx",
+    "date": "June 2026",
+    "href": "https://documents.cap.org/protocols/HN.HPV-Assoc_Oropharynx.Res_1.1.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-onerilmez",
+    "hpv": true,
+    "summary": "HPV-associated orofarenks SCC’de ana eksen HPV ilişkisidir; mikroskopta nonkeratinize/az diferansiye gibi görünüm formal grade’e çevrilmemelidir.",
+    "naming": [
+      "Skuamöz hücreli karsinom, HPV-associated",
+      "p16/HPV durumu rapor dilinin merkezindedir.",
+      "Keratinizasyon varsa morfolojik not olarak kalabilir."
+    ],
+    "subtypes": [
+      "HPV-associated SCC",
+      "Nonkeratinize SCC",
+      "Nonkeratinize with maturation"
+    ],
+    "grading": [
+      "Formal G1-G2-G3 grade genellikle önerilmez.",
+      "Görünüm az diferansiye gibi olsa da prognoz HPV-negatif konvansiyonel SCC ile aynı değildir."
+    ],
+    "note": "Burada “az diferansiye” yazmak mikroskop hissini anlatır ama klinik mesajı bozabilir.",
+    "report": "Skuamöz hücreli karsinom, HPV-associated\np16: pozitif\nHistolojik grade: uygulanmadı",
+    "id": "p69"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "Larynx",
+    "date": "April 2026",
+    "href": "https://documents.cap.org/protocols/HN.Larynx_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Larinkste konvansiyonel SCC ve varyantlar raporlanır. Klasik grade kullanılabilir; prognostik gücü sınırlı olabilir.",
+    "naming": [
+      "Skuamöz hücreli karsinom",
+      "Konvansiyonel SCC",
+      "Keratinize/nonkeratinize morfoloji belirtilebilir."
+    ],
+    "subtypes": [
+      "Konvansiyonel SCC",
+      "Verrüköz SCC",
+      "Bazaloid SCC",
+      "Papiller SCC",
+      "Spindle cell / sarkomatoid SCC"
+    ],
+    "grading": [
+      "G1-G2-G3 kullanılabilir.",
+      "Budding ve cell nest size temelli sistemler literatürde daha güçlü prognostik ayrım sağlayabilir.",
+      "Rutin rapor dilinde yine organ protokolündeki zorunlu alanlar takip edilir."
+    ],
+    "note": "Klasik grade yazılır ama invazyon paterni çoğu zaman daha çok konuşur.",
+    "report": "Skuamöz hücreli karsinom, konvansiyonel tip\nHistolojik grade: G2",
+    "id": "p70"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "Nasal Sinuses and Paranasal Sinuses",
+    "date": "April 2026",
+    "href": "https://documents.cap.org/protocols/HN.Nasal_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Sinonazal bölgede konvansiyonel SCC yanında SNUC, NUT, SMARCB1/SMARCA4-deficient karsinom gibi mimikler/özel entiteler önemlidir.",
+    "naming": [
+      "Sinonazal skuamöz hücreli karsinom",
+      "Keratinize veya nonkeratinize morfoloji belirtilebilir.",
+      "Gerekirse moleküler/İHK tanımlı özel entiteler ayrılır."
+    ],
+    "subtypes": [
+      "Keratinize SCC",
+      "Nonkeratinize SCC",
+      "Papiller SCC",
+      "Spindle cell SCC",
+      "NUT carcinoma / SWI-SNF-deficient carcinoma ayırıcı tanısı"
+    ],
+    "grading": [
+      "Grade verilebilir ama özel entite ayrımı çoğu zaman grade’den daha önemlidir.",
+      "Bazaloid/immatür morfolojide İHK ve moleküler dikkat gerekir."
+    ],
+    "note": "Sinonazalde her nonkeratinize/bazaloid tümöre sadece “az diferansiye SCC” deyip geçmek tehlikeli olabilir.",
+    "report": "Sinonazal skuamöz hücreli karsinom\nMorfoloji: nonkeratinize/bazaloid özellikli\nGerekli ise NUT/INI1/BRG1 vb. ile ayırıcı tanı",
+    "id": "p72"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "Nasopharynx",
+    "date": "April 2026",
+    "href": "https://documents.cap.org/protocols/HN.Nasopharynx.Res_1.0.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-onerilmez",
+    "hpv": true,
+    "summary": "Nazofarinkste keratinizasyon alt tip dilidir. EBV ilişkili nonkeratinize nazofarinks karsinomu klasik G1-G2-G3 mantığıyla okunmaz.",
+    "naming": [
+      "Keratinize SCC",
+      "Nonkeratinize nazofarinks karsinomu",
+      "Bazaloid SCC",
+      "EBV ilişkisi özellikle önemlidir."
+    ],
+    "subtypes": [
+      "Nonkeratinize differentiated",
+      "Nonkeratinize undifferentiated",
+      "Keratinize SCC",
+      "Bazaloid SCC"
+    ],
+    "grading": [
+      "EBV ilişkili nonkeratinize grupta formal grade genellikle anlamlı değildir.",
+      "Nonkeratinize demek otomatik G3 demek değildir."
+    ],
+    "note": "Nazofarinkste “nonkeratinize” tanı etiketi, “az diferansiye” yerine geçmez.",
+    "report": "Nonkeratinize nazofarinks karsinomu\nEBV ilişkisi: pozitif",
+    "id": "p73"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "Oral Cavity",
+    "date": "April 2026",
+    "href": "https://documents.cap.org/protocols/HN.Oral_4.3.0.0.REL_CAPCP.pdf",
+    "status": "scc-var",
+    "statusLabel": "SCC var",
+    "gradeTag": "grade-core",
+    "hpv": false,
+    "summary": "Oral kavitede konvansiyonel SCC dili ve G1-G2-G3 diferansiyasyon grade’i hâlâ pratikte kullanılır. Derin invaziv cephe kritik önemdedir.",
+    "naming": [
+      "Konvansiyonel skuamöz hücreli karsinom",
+      "Keratinize / nonkeratinize morfoloji belirtilebilir.",
+      "Özel varyant varsa varyant adı öne çıkar."
+    ],
+    "subtypes": [
+      "Konvansiyonel SCC",
+      "Verrüköz SCC",
+      "Bazaloid SCC",
+      "Papiller SCC",
+      "Spindle cell / sarkomatoid SCC",
+      "Adenoskuamöz karsinom"
+    ],
+    "grading": [
+      "G1-G2-G3 kullanılabilir.",
+      "Keratinizasyon, nükleer pleomorfizm, mitoz ve invazyon paterni birlikte değerlendirilir.",
+      "Heterojen tümörde derin invaziv cephedeki en kötü komponent önemlidir."
+    ],
+    "note": "Yüzey iyi diferansiye, derin cephe az diferansiye ise “ortalama G2”ye yuvarlamak güvenli olmayabilir.",
+    "report": "Skuamöz hücreli karsinom, konvansiyonel keratinize tip\nHistolojik grade: G3\n\nNot: Yüzeyel alanlarda keratinize/iyi diferansiye morfoloji izlenmekle birlikte,\nderin invaziv komponentte az diferansiye alanlar mevcuttur.",
+    "id": "p74"
+  },
+  {
+    "group": "Head and Neck",
+    "title": "Salivary Gland",
+    "date": "April 2026",
+    "href": "https://documents.cap.org/protocols/HN.Salivary.Res_1.0.0.0.REL_CAPCP.pdf",
+    "status": "scc-nadir",
+    "statusLabel": "SCC nadir / özel",
+    "gradeTag": "grade-sinirli",
+    "hpv": false,
+    "summary": "Tükrük bezinde primer SCC çok nadirdir ve metastaz/komşulukla yayılım dışlanmalıdır. Mucoepidermoid carcinoma ve salivary duct carcinoma gibi tümörler ayırıcı tanıya girer.",
+    "naming": [
+      "Primer tükrük bezi SCC tanısı dışlama tanısı gibi ele alınır.",
+      "Metastatik kutanöz/oral SCC ve komşulukla invazyon mutlaka düşünülür."
+    ],
+    "subtypes": [
+      "Primer salivary SCC çok nadir",
+      "Mucoepidermoid carcinoma",
+      "Salivary duct carcinoma with squamous features",
+      "Metastatik SCC"
+    ],
+    "grading": [
+      "Standart SCC grade pratiği organın ana protokol ekseni değildir.",
+      "Asıl mesele primerlik ve doğru tümör tipidir."
+    ],
+    "note": "Tükrük bezinde SCC yazmadan önce deri/oral kavite/metastaz dosyasını kurcalamak gerekir.",
+    "report": "Tükrük bezinde skuamöz morfolojili malign tümör\nÖncelikle metastatik/komşulukla invaziv SCC ve mucoepidermoid carcinoma dışlanmalıdır.",
+    "id": "p75"
+  }
+];
+
+const state = {
+  activeId: DATA.find(x => x.status === "scc-var")?.id || DATA[0].id,
+  filter: "all"
+};
+
+const els = {
+  nav: document.getElementById("nav"),
+  search: document.getElementById("search"),
+  groupName: document.getElementById("groupName"),
+  protocolTitle: document.getElementById("protocolTitle"),
+  pdfLink: document.getElementById("pdfLink"),
+  summary: document.getElementById("summary"),
+  badges: document.getElementById("badges"),
+  pdfMeta: document.getElementById("pdfMeta"),
+  naming: document.getElementById("naming"),
+  subtypes: document.getElementById("subtypes"),
+  grading: document.getElementById("grading"),
+  note: document.getElementById("note"),
+  report: document.getElementById("report"),
+  quick: document.getElementById("quick")
+};
+
+function statusClass(x) {
+  return x.status;
+}
+
+function gradeLabel(tag) {
+  const map = {
+    "grade-core": "Grade önemli",
+    "grade-sinirli": "Grade sınırlı / bağlama bağlı",
+    "grade-onerilmez": "Grade önerilmez",
+    "grade-yok": "Grade yok"
+  };
+  return map[tag] || tag;
+}
+
+function gradeBadgeClass(tag) {
+  if (tag === "grade-core") return "good";
+  if (tag === "grade-sinirli") return "warn";
+  if (tag === "grade-onerilmez") return "bad";
+  return "none";
+}
+
+function filteredData() {
+  const q = els.search.value.trim().toLowerCase();
+  return DATA.filter(item => {
+    if (item.status === "scc-yok") return false;
+    let pass = true;
+    if (state.filter === "scc-var") pass = item.status === "scc-var";
+    else if (state.filter === "scc-nadir") pass = item.status === "scc-nadir";
+    else if (state.filter === "hpv") pass = item.hpv;
+    else if (state.filter === "grade-core") pass = item.gradeTag === "grade-core";
+
+    const blob = [
+      item.group, item.title, item.date, item.statusLabel, item.summary,
+      item.naming.join(" "), item.subtypes.join(" "), item.grading.join(" "), item.note
+    ].join(" ").toLowerCase();
+
+    return pass && (!q || blob.includes(q));
+  });
+}
+
+function renderNav() {
+  const items = filteredData();
+  const grouped = new Map();
+  for (const item of items) {
+    if (!grouped.has(item.group)) grouped.set(item.group, []);
+    grouped.get(item.group).push(item);
+  }
+
+  els.nav.innerHTML = "";
+  for (const [group, rows] of grouped.entries()) {
+    const details = document.createElement("details");
+    details.className = "group";
+    details.open = rows.some(x => x.id === state.activeId) || els.search.value.trim() || state.filter !== "all";
+    const summary = document.createElement("summary");
+    summary.innerHTML = `<span>${group}</span><span class="group-count">${rows.length}</span>`;
+    details.appendChild(summary);
+
+    const list = document.createElement("div");
+    list.className = "protocol-list";
+
+    for (const item of rows) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "nav-item" + (item.id === state.activeId ? " active" : "");
+      btn.innerHTML = `
+        <span>
+          <span class="nav-title">${escapeHtml(item.title)}</span>
+          <span class="nav-date">${escapeHtml(item.date)}</span>
+        </span>
+        <span class="pill ${statusClass(item)}">${item.statusLabel.replace(" / odak dışı","")}</span>
+      `;
+      btn.onclick = () => {
+        state.activeId = item.id;
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+      list.appendChild(btn);
+    }
+
+    details.appendChild(list);
+    els.nav.appendChild(details);
+  }
+
+  if (!items.some(x => x.id === state.activeId) && items.length) {
+    state.activeId = items[0].id;
+  }
+}
+
+function fillList(el, arr) {
+  el.innerHTML = "";
+  for (const text of arr) {
+    const li = document.createElement("li");
+    li.textContent = text;
+    el.appendChild(li);
+  }
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function renderBadges(item) {
+  els.badges.innerHTML = "";
+  const badges = [
+    { text:item.statusLabel, cls:item.status === "scc-var" ? "good" : item.status === "scc-nadir" ? "warn" : "none" },
+    { text:gradeLabel(item.gradeTag), cls:gradeBadgeClass(item.gradeTag) }
+  ];
+  if (item.hpv) badges.push({ text:"HPV eksenli", cls:"purple" });
+
+  for (const b of badges) {
+    const span = document.createElement("span");
+    span.className = "badge " + b.cls;
+    span.textContent = b.text;
+    els.badges.appendChild(span);
+  }
+}
+
+function renderQuick(item) {
+  const quick = [];
+  if (item.status === "scc-var") quick.push("Bu protokolde SCC gerçek/pratik bir tanı kategorisidir.");
+  if (item.status === "scc-nadir") quick.push("SCC bu protokolde nadir veya özel durumdur; primerlik/metastaz/komşuluk mutlaka sorgulanmalı.");
+  if (item.gradeTag === "grade-core") quick.push("Grade raporlamada anlamlı/pratik bir alandır.");
+  if (item.gradeTag === "grade-sinirli") quick.push("Grade verilebilir ama organ biyolojisi veya başka parametreler daha belirleyici olabilir.");
+  if (item.gradeTag === "grade-onerilmez") quick.push("Formal grade klinik mesajı bozabilir veya önerilmez.");
+  if (item.hpv) quick.push("HPV/p16 ekseni isimlendirme ve biyoloji açısından önemlidir.");
+  quick.push("PDF bağlantısı ilgili resmî protokol dosyasına gider; son karar için ilgili PDF içindeki histolojik tip ve core/non-core alanları kontrol et.");
+  fillList(els.quick, quick);
+}
+
+function renderMain() {
+  const item = DATA.find(x => x.id === state.activeId) || DATA[0];
+  els.groupName.textContent = item.group;
+  els.protocolTitle.textContent = item.title;
+  els.pdfLink.href = item.href;
+  els.summary.textContent = item.summary;
+  els.pdfMeta.textContent = `PDF tarihi: ${item.date} · Kaynak grup: ${item.group}`;
+  fillList(els.naming, item.naming);
+  fillList(els.subtypes, item.subtypes);
+  fillList(els.grading, item.grading);
+  els.note.textContent = item.note;
+  els.report.textContent = item.report;
+  renderBadges(item);
+  renderQuick(item);
+}
+
+function render() {
+  renderNav();
+  renderMain();
+}
+
+document.querySelectorAll(".filter").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(x => x.classList.remove("active"));
+    btn.classList.add("active");
+    state.filter = btn.dataset.filter;
+    const items = filteredData();
+    if (items.length && !items.some(x => x.id === state.activeId)) state.activeId = items[0].id;
+    render();
+  });
+});
+
+els.search.addEventListener("input", () => {
+  const items = filteredData();
+  if (items.length && !items.some(x => x.id === state.activeId)) state.activeId = items[0].id;
+  render();
+});
+
+document.getElementById("openAll").addEventListener("click", () => {
+  document.querySelectorAll("details.group").forEach(d => d.open = true);
+});
+document.getElementById("closeAll").addEventListener("click", () => {
+  document.querySelectorAll("details.group").forEach(d => d.open = false);
+});
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("copyBtn");
+  try {
+    await navigator.clipboard.writeText(els.report.textContent);
+    btn.textContent = "Kopyalandı";
+  } catch {
+    btn.textContent = "Seçip kopyala";
+  }
+  setTimeout(() => btn.textContent = "Kopyala", 1200);
+});
+
+const themeBtn = document.getElementById("themeBtn");
+function applyTheme(mode) {
+  document.body.classList.toggle("dark", mode === "dark");
+  themeBtn.textContent = mode === "dark" ? "☀️ Aydınlık mod" : "🌙 Koyu mod";
+  localStorage.setItem("sccCapTheme", mode);
+}
+themeBtn.addEventListener("click", () => {
+  const isDark = document.body.classList.contains("dark");
+  applyTheme(isDark ? "light" : "dark");
+});
+const saved = localStorage.getItem("sccCapTheme");
+applyTheme(saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+
+render();
+</script>
+</body>
+</html>
