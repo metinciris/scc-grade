@@ -425,13 +425,13 @@
 </style>
 </head>
 <body>
-<!-- Yayın notu: Bu sayfa özgün bir eğitim/navigasyon aracıdır; herhangi bir mesleki kuruluşun resmi ürünü veya onaylı yayını değildir. -->
+<!-- Yayın notu: Bu sayfa özgün bir eğitim aracıdır; herhangi bir mesleki kuruluşla bağlantı veya onay iddiası taşımaz. -->
 <header>
   <div class="head-inner">
     <div>
       <h1>Organ Sistemlerine Göre SCC İsimlendirme ve Gradeleme</h1>
       <p class="subtitle">
-        Sol menü organ/sistem gruplarına göre düzenlenmiştir. Yalnızca SCC içeren veya SCC açısından pratikte özel/nadir bağlamı olan başlıklar gösterilir.
+        Sol menü organ/sistem gruplarına göre düzenlenmiştir. Biyopsi ve rezeksiyon başlıkları aynı organ altında birleştirilmiştir.
         İçerik, pratik rapor dili için özgün eğitim özeti olarak hazırlanmıştır.
       </p>
     </div>
@@ -445,7 +445,7 @@
 
 <div class="layout">
   <aside>
-    <input id="search" class="search" type="search" placeholder="Organ, protokol veya SCC tipi ara..." />
+    <input id="search" class="search" type="search" placeholder="Organ, sistem veya SCC tipi ara..." />
     <div class="filters">
       <button class="filter active" data-filter="all">Tümü</button>
       <button class="filter" data-filter="scc-var">SCC var</button>
@@ -497,8 +497,8 @@
 
 <footer>
   <div class="foot">
-    <b>Hatırlatma:</b> Bu araç pratik rapor dili için özgün eğitim/navigasyon sayfasıdır.
-    Herhangi bir mesleki kuruluşla bağlantı/endorsement iddiası taşımaz. Nihai raporlama için güncel resmi kaynaklar ve WHO sınıflaması ayrıca kontrol edilmelidir. Keratinizasyonu not et; ama raporu keratine teslim etme.
+    <b>Hatırlatma:</b> Bu araç pratik rapor dili için özgün eğitim sayfasıdır.
+    Herhangi bir mesleki kuruluşla bağlantı veya onay iddiası taşımaz. Keratinizasyonu not et; ama raporu keratine teslim etme.
   </div>
 </footer>
 
@@ -506,8 +506,7 @@
 const DATA = [
   {
     "group": "Breast",
-    "title": "Breast Invasive, Biopsy",
-    "date": "June 2026",
+    "title": "Breast",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -524,42 +523,16 @@ const DATA = [
     ],
     "grading": [
       "Meme invaziv karsinom grade sistemi bağlama göre kullanılır.",
-      "SCC grade’i organın klasik SCC grade’i gibi ele alınmamalıdır."
+      "SCC grade’i klasik organ SCC grade’i gibi ele alınmamalıdır.",
+      "Biyopsi ve rezeksiyon aynı organ başlığında özetlenmiştir."
     ],
     "note": "Memede SCC yazarken deri/metastaz ve metaplastik karsinom dosyasını açmadan kapatma.",
     "report": "Metaplastik karsinom, skuamöz diferansiyasyonlu\nHistolojik grade: ...",
-    "id": "p0"
-  },
-  {
-    "group": "Breast",
-    "title": "Breast Invasive, Resection",
-    "date": "June 2026",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Memede saf primer SCC çok nadirdir; çoğu pratikte metaplastik karsinom/squamöz diferansiyasyon bağlamında düşünülür.",
-    "naming": [
-      "Metaplastik karsinom, skuamöz diferansiyasyonlu",
-      "Primer saf meme SCC çok nadir ve dışlama tanısıdır."
-    ],
-    "subtypes": [
-      "Metaplastik carcinoma with squamous differentiation",
-      "Pure squamous cell carcinoma of breast çok nadir",
-      "Adenosquamous carcinoma"
-    ],
-    "grading": [
-      "Meme invaziv karsinom grade sistemi bağlama göre kullanılır.",
-      "SCC grade’i organın klasik SCC grade’i gibi ele alınmamalıdır."
-    ],
-    "note": "Memede SCC yazarken deri/metastaz ve metaplastik karsinom dosyasını açmadan kapatma.",
-    "report": "Metaplastik karsinom, skuamöz diferansiyasyonlu\nHistolojik grade: ...",
-    "id": "p1"
+    "id": "o0"
   },
   {
     "group": "Gynecologic",
-    "title": "Uterine Cervix, Excision",
-    "date": "March 2023",
+    "title": "Uterine Cervix",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -580,46 +553,16 @@ const DATA = [
     "grading": [
       "Yerleşik ve güçlü bir rutin grade sistemi yoktur.",
       "Keratinizasyonu iyi diferansiyasyon gibi okumak servikste yanıltıcı olabilir.",
-      "Grade zorunlu/merkezi değildir."
+      "Grade zorunlu/merkezi değildir.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Servikste “keratinize, iyi diferansiye SCC” kulağa klasik gelir ama güncel sınıflama dilinin merkezinde değildir.",
     "report": "Skuamöz hücreli karsinom, HPV-associated\n\nHPV/p16 çalışılamadıysa:\nSkuamöz hücreli karsinom, NOS",
-    "id": "p11"
+    "id": "o1"
   },
   {
     "group": "Gynecologic",
-    "title": "Uterine Cervix, Resection",
-    "date": "April 2023",
-    "status": "scc-var",
-    "statusLabel": "SCC var",
-    "gradeTag": "grade-onerilmez",
-    "hpv": true,
-    "summary": "Servikste güncel ana eksen HPV-associated / HPV-independent / NOS ayrımıdır. Keratinize-nonkeratinize dili artık merkezde değildir.",
-    "naming": [
-      "Skuamöz hücreli karsinom, HPV-associated",
-      "Skuamöz hücreli karsinom, HPV-independent",
-      "Skuamöz hücreli karsinom, NOS",
-      "p16/HPV sınıflamada yardımcıdır."
-    ],
-    "subtypes": [
-      "HPV-associated SCC",
-      "HPV-independent SCC",
-      "SCC, NOS",
-      "Keratinize/nonkeratinize morfoloji yalnızca ek bilgi olarak belirtilebilir."
-    ],
-    "grading": [
-      "Yerleşik ve güçlü bir rutin grade sistemi yoktur.",
-      "Keratinizasyonu iyi diferansiyasyon gibi okumak servikste yanıltıcı olabilir.",
-      "Grade zorunlu/merkezi değildir."
-    ],
-    "note": "Servikste “keratinize, iyi diferansiye SCC” kulağa klasik gelir ama güncel sınıflama dilinin merkezinde değildir.",
-    "report": "Skuamöz hücreli karsinom, HPV-associated\n\nHPV/p16 çalışılamadıysa:\nSkuamöz hücreli karsinom, NOS",
-    "id": "p12"
-  },
-  {
-    "group": "Gynecologic",
-    "title": "Vagina, Biopsy",
-    "date": "June 2021",
+    "title": "Vagina",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -637,43 +580,16 @@ const DATA = [
     ],
     "grading": [
       "Grade verilebilir ama HPV ilişkisi ve primerlik daha öncelikli olabilir.",
-      "Keratinizasyon tek başına biyolojik yorum için yeterli değildir."
+      "Keratinizasyon tek başına biyolojik yorum için yeterli değildir.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Vajende tanı koyarken organ sınırları bazen mikroskoptan daha çok klinik dosyada çözülür.",
     "report": "Vajinal skuamöz hücreli karsinom\nHPV ilişkisi: ...\nHistolojik grade: ...",
-    "id": "p13"
-  },
-  {
-    "group": "Gynecologic",
-    "title": "Vagina, Resection",
-    "date": "November 2021",
-    "status": "scc-var",
-    "statusLabel": "SCC var",
-    "gradeTag": "grade-sinirli",
-    "hpv": true,
-    "summary": "Vajende SCC pratikte HPV ilişkili alan mantığıyla düşünülür; serviks/vulva ile komşuluk ve primerlik önemlidir.",
-    "naming": [
-      "Vajinal skuamöz hücreli karsinom",
-      "HPV ilişkisi değerlendirilebilir.",
-      "Serviks/vulvadan yayılım dışlanmalıdır."
-    ],
-    "subtypes": [
-      "HPV-associated SCC",
-      "HPV-independent/keratinize paternler",
-      "Verrüköz/bazaloid özellikler"
-    ],
-    "grading": [
-      "Grade verilebilir ama HPV ilişkisi ve primerlik daha öncelikli olabilir.",
-      "Keratinizasyon tek başına biyolojik yorum için yeterli değildir."
-    ],
-    "note": "Vajende tanı koyarken organ sınırları bazen mikroskoptan daha çok klinik dosyada çözülür.",
-    "report": "Vajinal skuamöz hücreli karsinom\nHPV ilişkisi: ...\nHistolojik grade: ...",
-    "id": "p14"
+    "id": "o2"
   },
   {
     "group": "Gynecologic",
     "title": "Vulva",
-    "date": "June 2024",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -693,17 +609,16 @@ const DATA = [
     ],
     "grading": [
       "Standart ve uzlaşılı prognostik grade sistemi güçlü değildir.",
-      "Grade çoğu protokol/pratikte opsiyonel veya sınırlı değerdedir.",
+      "Grade çoğu pratikte opsiyonel veya sınırlı değerdedir.",
       "HPV-independent olgularda mevcut grade sistemleri yetersiz kalabilir."
     ],
     "note": "Vulvada iyi diferansiye görünüm raporu okuyanı rahatlatmasın; biyoloji her zaman uslu değildir.",
     "report": "Skuamöz hücreli karsinom, HPV-independent\np53: aberrant patern\np16: negatif/fokal",
-    "id": "p15"
+    "id": "o3"
   },
   {
     "group": "Gastrointestinal",
-    "title": "Anus, Excision",
-    "date": "September 2023",
+    "title": "Anus",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -722,44 +637,16 @@ const DATA = [
     ],
     "grading": [
       "Alt tiplerin tekrarlanabilirliği ve prognostik ayrımı sınırlıdır.",
-      "Grade raporlanabilir ama isimlendirme eski keratinizasyon alt tiplerine teslim edilmemelidir."
+      "Grade raporlanabilir ama isimlendirme eski keratinizasyon alt tiplerine teslim edilmemelidir.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Anal kanalda eski alt tip isimleri kulağa düzenli gelir ama biyoloji o kadar düzenli değildir.",
     "report": "Skuamöz hücreli karsinom\n\nYorum: Bazaloid özellikler ve fokal keratinizasyon izlenmiştir.",
-    "id": "p16"
-  },
-  {
-    "group": "Gastrointestinal",
-    "title": "Anus, Resection",
-    "date": "June 2022",
-    "status": "scc-var",
-    "statusLabel": "SCC var",
-    "gradeTag": "grade-sinirli",
-    "hpv": true,
-    "summary": "Anal kanalda eski large cell keratinizing / nonkeratinizing / basaloid ayrımı geri plandadır. Genel SCC tanısı tercih edilir.",
-    "naming": [
-      "Skuamöz hücreli karsinom",
-      "Keratinizasyon veya bazaloid özellikler yorumda belirtilebilir.",
-      "HPV ilişkisi biyolojik olarak önemlidir."
-    ],
-    "subtypes": [
-      "SCC",
-      "Bazaloid özellikli SCC",
-      "Keratinizasyon gösteren SCC",
-      "Eski large cell keratinizing/nonkeratinizing terminolojisi rutin merkezde değildir."
-    ],
-    "grading": [
-      "Alt tiplerin tekrarlanabilirliği ve prognostik ayrımı sınırlıdır.",
-      "Grade raporlanabilir ama isimlendirme eski keratinizasyon alt tiplerine teslim edilmemelidir."
-    ],
-    "note": "Anal kanalda eski alt tip isimleri kulağa düzenli gelir ama biyoloji o kadar düzenli değildir.",
-    "report": "Skuamöz hücreli karsinom\n\nYorum: Bazaloid özellikler ve fokal keratinizasyon izlenmiştir.",
-    "id": "p17"
+    "id": "o4"
   },
   {
     "group": "Gastrointestinal",
     "title": "Distal Extrahepatic Bile Ducts",
-    "date": "June 2025",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -776,17 +663,16 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı takip edilir.",
       "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p19"
+    "id": "o5"
   },
   {
     "group": "Gastrointestinal",
-    "title": "Small Intestine, Resection",
-    "date": "June 2025",
+    "title": "Small Intestine",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -803,17 +689,17 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p25"
+    "id": "o6"
   },
   {
     "group": "Gastrointestinal",
     "title": "Intrahepatic Bile Ducts",
-    "date": "June 2025",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -830,17 +716,16 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı takip edilir.",
       "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p26"
+    "id": "o7"
   },
   {
     "group": "Gastrointestinal",
-    "title": "Colon and Rectum Biomarker Reporting",
-    "date": "June 2021",
+    "title": "Colon and Rectum",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -857,17 +742,17 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+      "Anal kanal ve özofagus dışındaki GI SCC’lerde ayrı, yaygın standart bir SCC grade sistemi genellikle yoktur.",
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı ile metastaz/komşuluk ayırımı birlikte düşünülür.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; aynı organ başlığında özetlendi."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p27"
+    "id": "o8"
   },
   {
     "group": "Gastrointestinal",
-    "title": "Colon and Rectum, Biopsy",
-    "date": "December 2023",
+    "title": "Stomach",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -884,71 +769,17 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı takip edilir.",
+      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p28"
-  },
-  {
-    "group": "Gastrointestinal",
-    "title": "Colon & Rectum, Resection",
-    "date": "September 2025",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
-    "naming": [
-      "Adenoskuamöz karsinom",
-      "Saf SCC çok nadir",
-      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
-    ],
-    "subtypes": [
-      "Adenosquamous carcinoma",
-      "Squamous cell carcinoma çok nadir",
-      "Poorly differentiated carcinoma with squamous differentiation"
-    ],
-    "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
-    ],
-    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
-    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p29"
-  },
-  {
-    "group": "Gastrointestinal",
-    "title": "Stomach, Resection",
-    "date": "March 2023",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
-    "naming": [
-      "Adenoskuamöz karsinom",
-      "Saf SCC çok nadir",
-      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
-    ],
-    "subtypes": [
-      "Adenosquamous carcinoma",
-      "Squamous cell carcinoma çok nadir",
-      "Poorly differentiated carcinoma with squamous differentiation"
-    ],
-    "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
-    ],
-    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
-    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p30"
+    "id": "o9"
   },
   {
     "group": "Gastrointestinal",
     "title": "Pancreas (Exocrine)",
-    "date": "June 2025",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -965,17 +796,16 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı takip edilir.",
       "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p31"
+    "id": "o10"
   },
   {
     "group": "Gastrointestinal",
     "title": "Perihilar Bile Ducts",
-    "date": "June 2025",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -992,22 +822,21 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı takip edilir.",
       "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p32"
+    "id": "o11"
   },
   {
     "group": "Gastrointestinal",
     "title": "Gallbladder",
-    "date": "June 2025",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
     "hpv": false,
-    "summary": "Saf SCC veya adenoskuamöz karsinom safra kesesinde nadirdir; ilgili safra kesesi protokolü içinde histolojik tip olarak yakalanabilir.",
+    "summary": "Saf SCC veya adenoskuamöz karsinom safra kesesinde nadirdir; ilgili safra kesesi raporlama yaklaşımı içinde histolojik tip olarak yakalanabilir.",
     "naming": [
       "Safra kesesi karsinomu",
       "Adenoskuamöz karsinom",
@@ -1024,12 +853,11 @@ const DATA = [
     ],
     "note": "Safra kesesinde skuamöz morfoloji varsa adenokarsinom komponentini ve adenoskuamöz olasılığını iyi ara.",
     "report": "Safra kesesi karsinomu, adenoskuamöz tip\nveya\nSkuamöz hücreli karsinom",
-    "id": "p33"
+    "id": "o12"
   },
   {
     "group": "Gastrointestinal",
     "title": "Ampulla of Vater",
-    "date": "June 2025",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1046,17 +874,16 @@ const DATA = [
       "Poorly differentiated carcinoma with squamous differentiation"
     ],
     "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
+      "Organın ana karsinom raporlama ve evreleme yaklaşımı takip edilir.",
       "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
     ],
     "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
     "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p34"
+    "id": "o13"
   },
   {
     "group": "Gastrointestinal",
     "title": "Esophagus",
-    "date": "June 2022",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
@@ -1081,128 +908,19 @@ const DATA = [
     ],
     "note": "Özofagusta keratinizasyon gerçekten grade masasındadır.",
     "report": "Skuamöz hücreli karsinom\nHistolojik grade: G2",
-    "id": "p35"
-  },
-  {
-    "group": "Endocrine and Neuroendocrine",
-    "title": "Duodenum and Ampulla NET, Resection",
-    "date": "June 2024",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
-    "naming": [
-      "Adenoskuamöz karsinom",
-      "Saf SCC çok nadir",
-      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
-    ],
-    "subtypes": [
-      "Adenosquamous carcinoma",
-      "Squamous cell carcinoma çok nadir",
-      "Poorly differentiated carcinoma with squamous differentiation"
-    ],
-    "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
-    ],
-    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
-    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p38"
-  },
-  {
-    "group": "Endocrine and Neuroendocrine",
-    "title": "Colon and Rectum NET, Resection",
-    "date": "December 2023",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
-    "naming": [
-      "Adenoskuamöz karsinom",
-      "Saf SCC çok nadir",
-      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
-    ],
-    "subtypes": [
-      "Adenosquamous carcinoma",
-      "Squamous cell carcinoma çok nadir",
-      "Poorly differentiated carcinoma with squamous differentiation"
-    ],
-    "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
-    ],
-    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
-    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p40"
-  },
-  {
-    "group": "Endocrine and Neuroendocrine",
-    "title": "Stomach NET, Resection",
-    "date": "December 2023",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
-    "naming": [
-      "Adenoskuamöz karsinom",
-      "Saf SCC çok nadir",
-      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
-    ],
-    "subtypes": [
-      "Adenosquamous carcinoma",
-      "Squamous cell carcinoma çok nadir",
-      "Poorly differentiated carcinoma with squamous differentiation"
-    ],
-    "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
-    ],
-    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
-    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p41"
-  },
-  {
-    "group": "Endocrine and Neuroendocrine",
-    "title": "Pancreas NET, Resection",
-    "date": "June 2024",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Bu gastrointestinal bölgelerde primer SCC nadirdir; adenoskuamöz karsinom veya metastaz/komşulukla yayılım daha sık pratik problemdir.",
-    "naming": [
-      "Adenoskuamöz karsinom",
-      "Saf SCC çok nadir",
-      "Metastatik/komşulukla yayılan SCC ayırıcı tanısı"
-    ],
-    "subtypes": [
-      "Adenosquamous carcinoma",
-      "Squamous cell carcinoma çok nadir",
-      "Poorly differentiated carcinoma with squamous differentiation"
-    ],
-    "grading": [
-      "Organın ana karsinom protokolü ve evreleme sistemi takip edilir.",
-      "SCC için ayrı, yaygın standart grade sistemi genellikle yoktur."
-    ],
-    "note": "GI sistemde anal kanal ve özofagus dışında SCC görünce biraz şüpheci olmak iyidir.",
-    "report": "Karsinom, skuamöz diferansiyasyon gösteren\nAdenoskuamöz karsinom açısından değerlendirildi.",
-    "id": "p42"
+    "id": "o14"
   },
   {
     "group": "Genitourinary",
-    "title": "Kidney, Biopsy",
-    "date": "June 2026",
+    "title": "Kidney",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
     "hpv": false,
-    "summary": "Böbrek parankim protokolleri RCC odaklıdır. SCC daha çok renal pelvis/üreter protokolü veya metastaz/komşuluk bağlamında düşünülür.",
+    "summary": "Böbrek parankimi RCC odaklı değerlendirilir. SCC daha çok renal pelvis/üreter raporlama yaklaşımı veya metastaz/komşuluk bağlamında düşünülür.",
     "naming": [
       "Renal parankimde primer SCC beklenen rutin tanı değildir.",
-      "Renal pelvis kaynaklı SCC için üst üriner sistem protokolü daha uygundur."
+      "Renal pelvis kaynaklı SCC için üst üriner sistem raporlama yaklaşımı daha uygundur."
     ],
     "subtypes": [
       "Metastatik SCC",
@@ -1211,42 +929,16 @@ const DATA = [
     ],
     "grading": [
       "RCC grade sistemleri SCC için uygulanmaz.",
-      "Primerlik ve kaynak belirleme daha önemlidir."
+      "Primerlik ve kaynak belirleme daha önemlidir.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Böbrekte SCC görürsen önce “nereden geliyor?” sorusu, “grade kaç?” sorusundan önce gelir.",
     "report": "Böbrekte skuamöz morfolojili malign tümör\nRenal pelvis/üreter kaynaklı veya metastatik SCC açısından değerlendirilmelidir.",
-    "id": "p47"
+    "id": "o15"
   },
   {
     "group": "Genitourinary",
-    "title": "Kidney, Resection",
-    "date": "June 2026",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-yok",
-    "hpv": false,
-    "summary": "Böbrek parankim protokolleri RCC odaklıdır. SCC daha çok renal pelvis/üreter protokolü veya metastaz/komşuluk bağlamında düşünülür.",
-    "naming": [
-      "Renal parankimde primer SCC beklenen rutin tanı değildir.",
-      "Renal pelvis kaynaklı SCC için üst üriner sistem protokolü daha uygundur."
-    ],
-    "subtypes": [
-      "Metastatik SCC",
-      "Renal pelvis/üreter kaynaklı SCC",
-      "RCC içinde skuamöz metaplazi değil; dikkatli ayırıcı tanı gerekir."
-    ],
-    "grading": [
-      "RCC grade sistemleri SCC için uygulanmaz.",
-      "Primerlik ve kaynak belirleme daha önemlidir."
-    ],
-    "note": "Böbrekte SCC görürsen önce “nereden geliyor?” sorusu, “grade kaç?” sorusundan önce gelir.",
-    "report": "Böbrekte skuamöz morfolojili malign tümör\nRenal pelvis/üreter kaynaklı veya metastatik SCC açısından değerlendirilmelidir.",
-    "id": "p48"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Urinary Bladder, Biopsy",
-    "date": "June 2025",
+    "title": "Urinary Bladder",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1265,44 +957,16 @@ const DATA = [
     "grading": [
       "Ürotelyal karsinomda düşük/yüksek grade sistemi ayrıdır.",
       "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
-      "Keratinizasyon ve intersellüler köprüleşme skuamöz diferansiyasyon kanıtıdır."
+      "Keratinizasyon ve intersellüler köprüleşme skuamöz diferansiyasyon kanıtıdır.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Mesanede asıl soru çoğu zaman saf SCC mi, yoksa skuamöz diferansiyasyonlu ürotelyal karsinom mu sorusudur.",
     "report": "Ürotelyal karsinom, yüksek dereceli,\nskuamöz diferansiyasyonlu\n\nveya\n\nSkuamöz hücreli karsinom",
-    "id": "p49"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Urinary Bladder, Resection",
-    "date": "September 2023",
-    "status": "scc-var",
-    "statusLabel": "SCC var",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Mesanede saf SCC ile ürotelyal karsinomda skuamöz diferansiyasyon ayrımı kritiktir. Keratinizasyon tanısal kanıt olabilir.",
-    "naming": [
-      "Saf skuamöz hücreli karsinom",
-      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
-      "Saf SCC için ürotelyal komponent dışlanır."
-    ],
-    "subtypes": [
-      "Saf SCC",
-      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
-      "Verrüköz/papiller skuamöz paternler nadir"
-    ],
-    "grading": [
-      "Ürotelyal karsinomda düşük/yüksek grade sistemi ayrıdır.",
-      "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
-      "Keratinizasyon ve intersellüler köprüleşme skuamöz diferansiyasyon kanıtıdır."
-    ],
-    "note": "Mesanede asıl soru çoğu zaman saf SCC mi, yoksa skuamöz diferansiyasyonlu ürotelyal karsinom mu sorusudur.",
-    "report": "Ürotelyal karsinom, yüksek dereceli,\nskuamöz diferansiyasyonlu\n\nveya\n\nSkuamöz hücreli karsinom",
-    "id": "p50"
+    "id": "o16"
   },
   {
     "group": "Genitourinary",
     "title": "Penis",
-    "date": "September 2023",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
@@ -1326,17 +990,16 @@ const DATA = [
     ],
     "note": "Peniste iki soru birlikte sorulur: HPV ilişkisi nedir, grade nedir?",
     "report": "Skuamöz hücreli karsinom, HPV-independent, usual type\nHistolojik grade: G2",
-    "id": "p51"
+    "id": "o17"
   },
   {
     "group": "Genitourinary",
-    "title": "Prostate Needle Biopsy Case Level",
-    "date": "September 2023",
+    "title": "Prostate",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
     "hpv": false,
-    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
+    "summary": "Prostat raporlaması adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
     "naming": [
       "Primer prostat SCC çok nadir",
       "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
@@ -1348,94 +1011,16 @@ const DATA = [
     ],
     "grading": [
       "Gleason sistemi uygulanmaz.",
-      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
+      "Standart SCC grade’i rutin prostat raporlama ekseni değildir.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
     "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
-    "id": "p52"
+    "id": "o18"
   },
   {
     "group": "Genitourinary",
-    "title": "Prostate Needle Biopsy Specimen Level",
-    "date": "September 2023",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-yok",
-    "hpv": false,
-    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
-    "naming": [
-      "Primer prostat SCC çok nadir",
-      "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
-    ],
-    "subtypes": [
-      "Saf SCC",
-      "Adenoskuamöz karsinom",
-      "Tedavi sonrası skuamöz transdiferansiyasyon olasılığı"
-    ],
-    "grading": [
-      "Gleason sistemi uygulanmaz.",
-      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
-    ],
-    "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
-    "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
-    "id": "p53"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Prostate TURP",
-    "date": "September 2023",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-yok",
-    "hpv": false,
-    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
-    "naming": [
-      "Primer prostat SCC çok nadir",
-      "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
-    ],
-    "subtypes": [
-      "Saf SCC",
-      "Adenoskuamöz karsinom",
-      "Tedavi sonrası skuamöz transdiferansiyasyon olasılığı"
-    ],
-    "grading": [
-      "Gleason sistemi uygulanmaz.",
-      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
-    ],
-    "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
-    "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
-    "id": "p54"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Prostate, Resection",
-    "date": "September 2023",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-yok",
-    "hpv": false,
-    "summary": "Prostat raporlama protokolleri adenokarsinom/Gleason eksenlidir. Primer prostat SCC çok nadirdir ve Gleason grade verilmez.",
-    "naming": [
-      "Primer prostat SCC çok nadir",
-      "Ürotelyal karsinom, prostatik duktal adenokarsinom veya tedavi ilişkili değişiklikler ayırıcı tanıya girer."
-    ],
-    "subtypes": [
-      "Saf SCC",
-      "Adenoskuamöz karsinom",
-      "Tedavi sonrası skuamöz transdiferansiyasyon olasılığı"
-    ],
-    "grading": [
-      "Gleason sistemi uygulanmaz.",
-      "Standart SCC grade’i rutin prostat raporlama ekseni değildir."
-    ],
-    "note": "Prostatta skuamöz tümör görünce Gleason refleksini kapatmak gerekir.",
-    "report": "Prostatta skuamöz hücreli karsinom\nGleason skoru uygulanmaz.",
-    "id": "p55"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Testis Lymphadenectomy",
-    "date": "June 2024",
+    "title": "Testis",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1451,41 +1036,16 @@ const DATA = [
     ],
     "grading": [
       "Standart organ SCC grade sistemi ana eksen değildir.",
-      "GCT komponentleri ve somatik tip malignite ayrımı daha önemlidir."
+      "GCT komponentleri ve somatik tip malignite ayrımı daha önemlidir.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Testiste SCC varsa olay çoğu zaman bağımsız SCC değil, teratomun karanlık yanıdır.",
     "report": "Teratom zemininde somatik tip malignite:\nSkuamöz hücreli karsinom",
-    "id": "p56"
+    "id": "o19"
   },
   {
     "group": "Genitourinary",
-    "title": "Testis Orchiectomy",
-    "date": "March 2025",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-yok",
-    "hpv": false,
-    "summary": "Testiste SCC, germ hücreli tümör/teratom içinde somatik tip malignite olarak çok nadir gündeme gelebilir.",
-    "naming": [
-      "Teratom zemininde somatik tip malignite",
-      "Skuamöz hücreli karsinom komponenti çok nadir"
-    ],
-    "subtypes": [
-      "Somatic-type malignancy: SCC",
-      "Teratom ilişkili SCC"
-    ],
-    "grading": [
-      "Standart organ SCC grade sistemi ana eksen değildir.",
-      "GCT komponentleri ve somatik tip malignite ayrımı daha önemlidir."
-    ],
-    "note": "Testiste SCC varsa olay çoğu zaman bağımsız SCC değil, teratomun karanlık yanıdır.",
-    "report": "Teratom zemininde somatik tip malignite:\nSkuamöz hücreli karsinom",
-    "id": "p57"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Ureter, Renal Pelvis, Biopsy",
-    "date": "March 2025",
+    "title": "Ureter / Renal Pelvis",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1504,44 +1064,16 @@ const DATA = [
     "grading": [
       "Ürotelyal karsinom varsa ürotelyal grade sistemi kullanılır.",
       "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
-      "Keratinizasyon tanısal destek sağlar."
+      "Keratinizasyon tanısal destek sağlar.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Üreter/renal pelviste skuamöz morfoloji çoğu kez kronik irritasyon ve yüksek dereceli tümör bağlamında gelir.",
     "report": "Yüksek dereceli ürotelyal karsinom,\nskuamöz diferansiyasyonlu",
-    "id": "p58"
+    "id": "o20"
   },
   {
     "group": "Genitourinary",
-    "title": "Ureter, Renal Pelvis, Resection",
-    "date": "March 2025",
-    "status": "scc-var",
-    "statusLabel": "SCC var",
-    "gradeTag": "grade-sinirli",
-    "hpv": false,
-    "summary": "Üst üriner sistemde SCC nadir olabilir; daha sık olarak ürotelyal karsinomda skuamöz diferansiyasyonla karşılaşılır.",
-    "naming": [
-      "Ürotelyal karsinom, skuamöz diferansiyasyonlu",
-      "Saf skuamöz hücreli karsinom",
-      "Renal pelvis/üreter primerliği değerlendirilir."
-    ],
-    "subtypes": [
-      "Yüksek dereceli ürotelyal karsinom + skuamöz diferansiyasyon",
-      "Saf SCC",
-      "Verrüköz skuamöz lezyonlar çok nadir"
-    ],
-    "grading": [
-      "Ürotelyal karsinom varsa ürotelyal grade sistemi kullanılır.",
-      "Saf SCC’de diferansiyasyon derecesi belirtilebilir.",
-      "Keratinizasyon tanısal destek sağlar."
-    ],
-    "note": "Üreter/renal pelviste skuamöz morfoloji çoğu kez kronik irritasyon ve yüksek dereceli tümör bağlamında gelir.",
-    "report": "Yüksek dereceli ürotelyal karsinom,\nskuamöz diferansiyasyonlu",
-    "id": "p59"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Urethra, Biopsy",
-    "date": "December 2024",
+    "title": "Urethra",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1560,98 +1092,45 @@ const DATA = [
     ],
     "grading": [
       "Grade verilebilir ama segment, invazyon ve komşu organ ilişkisi daha kritik olabilir.",
-      "HPV ilişkisi bazı distal lezyonlarda önem kazanabilir."
+      "HPV ilişkisi bazı distal lezyonlarda önem kazanabilir.",
+      "Biyopsi ve rezeksiyon ayrı satır yapılmadı; isimlendirme/grade mantığı aynı organ başlığı altında özetlendi."
     ],
     "note": "Üretrada morfoloji kadar harita önemlidir: distal mi, proksimal mi, komşu organdan mı?",
     "report": "Üretral skuamöz hücreli karsinom\nHistolojik grade: ...",
-    "id": "p60"
-  },
-  {
-    "group": "Genitourinary",
-    "title": "Urethra, Resection",
-    "date": "December 2024",
-    "status": "scc-var",
-    "statusLabel": "SCC var",
-    "gradeTag": "grade-sinirli",
-    "hpv": true,
-    "summary": "Üretrada SCC anatomik segment, HPV ilişkisi ve komşu organ yayılımı ile birlikte değerlendirilir.",
-    "naming": [
-      "Üretral skuamöz hücreli karsinom",
-      "HPV ilişkili paternler",
-      "Ürotelyal/adenokarsinom ayırımı"
-    ],
-    "subtypes": [
-      "SCC",
-      "Ürotelyal karsinom",
-      "Adenokarsinom",
-      "Bazaloid/keratinize skuamöz paternler"
-    ],
-    "grading": [
-      "Grade verilebilir ama segment, invazyon ve komşu organ ilişkisi daha kritik olabilir.",
-      "HPV ilişkisi bazı distal lezyonlarda önem kazanabilir."
-    ],
-    "note": "Üretrada morfoloji kadar harita önemlidir: distal mi, proksimal mi, komşu organdan mı?",
-    "report": "Üretral skuamöz hücreli karsinom\nHistolojik grade: ...",
-    "id": "p61"
+    "id": "o21"
   },
   {
     "group": "Thorax",
-    "title": "Lung Biomarker Reporting",
-    "date": "September 2025",
-    "status": "scc-nadir",
-    "statusLabel": "SCC nadir / özel",
-    "gradeTag": "grade-yok",
-    "hpv": false,
-    "summary": "Bu protokol tanı/grade değil, akciğer biyobelirteç raporlaması içindir. SCC’de özellikle PD-L1 ve tedavi bağlamı için önemlidir.",
-    "naming": [
-      "Tanısal SCC isimlendirmesi için Lung Resection/Biopsy bağlamı kullanılır.",
-      "Bu başlık biyobelirteç raporlaması içindir."
-    ],
-    "subtypes": [
-      "SCC alt tipleri bu protokolün ana konusu değildir."
-    ],
-    "grading": [
-      "Gradeleme yok.",
-      "Biyobelirteç raporlaması tanı grade’inden ayrı düşünülür."
-    ],
-    "note": "SCC tanısını koyduk, onkoloji kapısında asıl bekleyen bazen PD-L1 olur.",
-    "report": "Akciğer SCC biyobelirteç raporlaması\nPD-L1: ...",
-    "id": "p62"
-  },
-  {
-    "group": "Thorax",
-    "title": "Lung, Resection",
-    "date": "September 2025",
+    "title": "Lung",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
     "hpv": false,
     "summary": "Akciğer SCC’de keratinizasyon alt tip bilgisidir; rutin oral kavite tarzı G1-G2-G3 grade merkezde değildir.",
     "naming": [
-      "Skuamöz hücreli karsinom",
       "Keratinize SCC",
       "Nonkeratinize SCC",
-      "Bazaloid SCC"
+      "Bazaloid SCC",
+      "Küçük örnekte gerekirse “NSCLC, SCC lehine” gibi dikkatli dil."
     ],
     "subtypes": [
       "Keratinize SCC",
       "Nonkeratinize SCC",
       "Bazaloid SCC",
-      "Lenfoepitelyal karsinom ilişkili nadir paternler"
+      "Lenfoepitelyal karsinom benzeri nadir paternler"
     ],
     "grading": [
-      "Uzun süre ortak konsensus grade sistemi yoktu.",
-      "IASLC/akciğer literatüründe budding, single cell invasion, nükleer çap veya budding temelli sistemler önerilmiştir.",
-      "Bunlar önemli ama rutin rapor dilinde her merkezde yerleşik değildir."
+      "Rutin oral kavite tarzı G1-G2-G3 grade merkezde değildir.",
+      "Tumor budding / single-cell invasion gibi yeni prognostik sistemler literatürde vardır ama günlük raporda standart değildir.",
+      "PD-L1 gibi biyobelirteçler tanı grade’inden ayrı düşünülür."
     ],
-    "note": "Akciğerde keratinizasyon tanıyı destekler; “keratinize = G1” refleksi doğru değildir.",
-    "report": "Skuamöz hücreli karsinom, keratinize tip\n\nKüçük biyopside:\nNon-small cell carcinoma, skuamöz hücreli karsinom lehine",
-    "id": "p63"
+    "note": "Akciğerde keratinizasyon tanıyı destekler; ama “keratinize = G1” refleksi doğru değildir.",
+    "report": "Skuamöz hücreli karsinom, keratinize tip\n\nKüçük biyopsi örneğinde:\nNon-small cell carcinoma, skuamöz hücreli karsinom lehine",
+    "id": "o22"
   },
   {
     "group": "Thorax",
     "title": "Thymus",
-    "date": "December 2024",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1678,17 +1157,16 @@ const DATA = [
     ],
     "note": "Timusta “SCC var mı?” sorusu genellikle “thymic carcinoma mı, thymoma mı, metastaz mı?” sorusunun içine gömülüdür.",
     "report": "Timik karsinom, skuamöz hücreli karsinom tipi\nRezeksiyon sınırı: ...\nİnvazyon: ...",
-    "id": "p65"
+    "id": "o23"
   },
   {
     "group": "Head and Neck",
     "title": "Cutaneous Carcinoma",
-    "date": "April 2026",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
     "hpv": false,
-    "summary": "Baş-boyun kutanöz karsinom protokolü cSCC pratiği için kullanışlıdır. Kötü diferansiyasyon yüksek risk faktörüdür; standardizasyon yine de kusursuz değildir.",
+    "summary": "Baş-boyun kutanöz karsinom raporlama yaklaşımı cSCC pratiği için kullanışlıdır. Kötü diferansiyasyon yüksek risk faktörüdür; standardizasyon yine de kusursuz değildir.",
     "naming": [
       "Kutanöz skuamöz hücreli karsinom",
       "SCC in situ",
@@ -1710,12 +1188,11 @@ const DATA = [
     ],
     "note": "Deride grade önemlidir ama raporun bütün yükünü grade’e vermek doğru değildir; derinlik ve PNI çoğu zaman daha sert konuşur.",
     "report": "Kutanöz skuamöz hücreli karsinom\nHistolojik grade: G2\nPerinöral invazyon: yok\nLenfovasküler invazyon: yok",
-    "id": "p67"
+    "id": "o24"
   },
   {
     "group": "Head and Neck",
-    "title": "HPV-Independent Oropharynx and Hypopharynx",
-    "date": "April 2026",
+    "title": "Oropharynx / Hypopharynx, HPV-independent",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1739,12 +1216,11 @@ const DATA = [
     ],
     "note": "HPV-negatif alanda grade daha anlamlıdır ama raporun tüm yükünü grade’e vermemek gerekir.",
     "report": "Skuamöz hücreli karsinom, HPV-independent\nHistolojik grade: G2",
-    "id": "p68"
+    "id": "o25"
   },
   {
     "group": "Head and Neck",
-    "title": "HPV-Associated Oropharynx",
-    "date": "June 2026",
+    "title": "Oropharynx, HPV-associated",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -1766,12 +1242,11 @@ const DATA = [
     ],
     "note": "Burada “az diferansiye” yazmak mikroskop hissini anlatır ama klinik mesajı bozabilir.",
     "report": "Skuamöz hücreli karsinom, HPV-associated\np16: pozitif\nHistolojik grade: uygulanmadı",
-    "id": "p69"
+    "id": "o26"
   },
   {
     "group": "Head and Neck",
     "title": "Larynx",
-    "date": "April 2026",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1792,16 +1267,15 @@ const DATA = [
     "grading": [
       "G1-G2-G3 kullanılabilir.",
       "Budding ve cell nest size temelli sistemler literatürde daha güçlü prognostik ayrım sağlayabilir.",
-      "Rutin rapor dilinde yine organ protokolündeki zorunlu alanlar takip edilir."
+      "Rutin rapor dilinde organın kendi zorunlu alanları takip edilir."
     ],
     "note": "Klasik grade yazılır ama invazyon paterni çoğu zaman daha çok konuşur.",
     "report": "Skuamöz hücreli karsinom, konvansiyonel tip\nHistolojik grade: G2",
-    "id": "p70"
+    "id": "o27"
   },
   {
     "group": "Head and Neck",
-    "title": "Nasal Sinuses and Paranasal Sinuses",
-    "date": "April 2026",
+    "title": "Nasal Cavity and Paranasal Sinuses",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1825,12 +1299,11 @@ const DATA = [
     ],
     "note": "Sinonazalde her nonkeratinize/bazaloid tümöre sadece “az diferansiye SCC” deyip geçmek tehlikeli olabilir.",
     "report": "Sinonazal skuamöz hücreli karsinom\nMorfoloji: nonkeratinize/bazaloid özellikli\nGerekli ise NUT/INI1/BRG1 vb. ile ayırıcı tanı",
-    "id": "p72"
+    "id": "o28"
   },
   {
     "group": "Head and Neck",
     "title": "Nasopharynx",
-    "date": "April 2026",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -1854,12 +1327,11 @@ const DATA = [
     ],
     "note": "Nazofarinkste “nonkeratinize” tanı etiketi, “az diferansiye” yerine geçmez.",
     "report": "Nonkeratinize nazofarinks karsinomu\nEBV ilişkisi: pozitif",
-    "id": "p73"
+    "id": "o29"
   },
   {
     "group": "Head and Neck",
     "title": "Oral Cavity",
-    "date": "April 2026",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
@@ -1885,12 +1357,11 @@ const DATA = [
     ],
     "note": "Yüzey iyi diferansiye, derin cephe az diferansiye ise “ortalama G2”ye yuvarlamak güvenli olmayabilir.",
     "report": "Skuamöz hücreli karsinom, konvansiyonel keratinize tip\nHistolojik grade: G3\n\nNot: Yüzeyel alanlarda keratinize/iyi diferansiye morfoloji izlenmekle birlikte,\nderin invaziv komponentte az diferansiye alanlar mevcuttur.",
-    "id": "p74"
+    "id": "o30"
   },
   {
     "group": "Head and Neck",
     "title": "Salivary Gland",
-    "date": "April 2026",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1907,12 +1378,12 @@ const DATA = [
       "Metastatik SCC"
     ],
     "grading": [
-      "Standart SCC grade pratiği organın ana protokol ekseni değildir.",
+      "Standart SCC grade pratiği bu organın ana ekseni değildir.",
       "Asıl mesele primerlik ve doğru tümör tipidir."
     ],
     "note": "Tükrük bezinde SCC yazmadan önce deri/oral kavite/metastaz dosyasını kurcalamak gerekir.",
     "report": "Tükrük bezinde skuamöz morfolojili malign tümör\nÖncelikle metastatik/komşulukla invaziv SCC ve mucoepidermoid carcinoma dışlanmalıdır.",
-    "id": "p75"
+    "id": "o31"
   }
 ];
 
@@ -2003,7 +1474,7 @@ function renderNav() {
       btn.innerHTML = `
         <span>
           <span class="nav-title">${escapeHtml(item.title)}</span>
-          <span class="nav-date">${escapeHtml(item.date)}</span>
+          
         </span>
         <span class="pill ${statusClass(item)}">${item.statusLabel.replace(" / odak dışı","")}</span>
       `;
@@ -2057,13 +1528,13 @@ function renderBadges(item) {
 
 function renderQuick(item) {
   const quick = [];
-  if (item.status === "scc-var") quick.push("Bu protokolde SCC gerçek/pratik bir tanı kategorisidir.");
-  if (item.status === "scc-nadir") quick.push("SCC bu protokolde nadir veya özel durumdur; primerlik/metastaz/komşuluk mutlaka sorgulanmalı.");
+  if (item.status === "scc-var") quick.push("Bu organda SCC gerçek/pratik bir tanı kategorisidir.");
+  if (item.status === "scc-nadir") quick.push("SCC bu organda nadir veya özel durumdur; primerlik/metastaz/komşuluk mutlaka sorgulanmalı.");
   if (item.gradeTag === "grade-core") quick.push("Grade raporlamada anlamlı/pratik bir alandır.");
   if (item.gradeTag === "grade-sinirli") quick.push("Grade verilebilir ama organ biyolojisi veya başka parametreler daha belirleyici olabilir.");
   if (item.gradeTag === "grade-onerilmez") quick.push("Formal grade klinik mesajı bozabilir veya önerilmez.");
   if (item.hpv) quick.push("HPV/p16 ekseni isimlendirme ve biyoloji açısından önemlidir.");
-  quick.push("Son karar için ilgili organın güncel resmi raporlama kaynakları ve WHO sınıflaması ayrıca kontrol edilmeli.");
+  quick.push("WHO sınıflaması ve kurum içi raporlama pratiği ile birlikte değerlendirilmelidir.");
   fillList(els.quick, quick);
 }
 
