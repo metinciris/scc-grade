@@ -93,7 +93,7 @@
     justify-content:flex-end;
   }
 
-  button, .pdf-link {
+  button {
     font:inherit;
   }
 
@@ -293,20 +293,6 @@
     line-height:1.06;
   }
 
-  .pdf-link {
-    color:var(--panel);
-    background:var(--accent);
-    border:1px solid color-mix(in srgb, var(--accent) 80%, black);
-    text-decoration:none;
-    border-radius:999px;
-    padding:10px 14px;
-    font-weight:700;
-    white-space:nowrap;
-  }
-
-  .pdf-link:hover {
-    filter:brightness(.98);
-  }
 
   .summary {
     color:var(--muted);
@@ -445,8 +431,8 @@
     <div>
       <h1>Organ Sistemlerine Göre SCC İsimlendirme ve Gradeleme</h1>
       <p class="subtitle">
-        Sol menü organ/sistem gruplarına göre düzenlenmiştir. Yalnızca SCC içeren veya SCC açısından pratikte özel/nadir bağlamı olan başlıklar gösterilir. Dış PDF bağlantıları
-        yüklenen güncel protokol listesinden alınmıştır.
+        Sol menü organ/sistem gruplarına göre düzenlenmiştir. Yalnızca SCC içeren veya SCC açısından pratikte özel/nadir bağlamı olan başlıklar gösterilir.
+        İçerik, pratik rapor dili için özgün eğitim özeti olarak hazırlanmıştır.
       </p>
     </div>
     <div class="top-actions">
@@ -475,11 +461,9 @@
       <div class="kicker" id="groupName"></div>
       <div class="title-row">
         <h2 class="organ-title" id="protocolTitle"></h2>
-        <a class="pdf-link" id="pdfLink" href="#" target="_blank" rel="noopener">Resmî PDF</a>
       </div>
       <p class="summary" id="summary"></p>
       <div class="badges" id="badges"></div>
-      <div class="meta-line" id="pdfMeta"></div>
     </section>
 
     <section class="cards">
@@ -513,8 +497,8 @@
 
 <footer>
   <div class="foot">
-    <b>Hatırlatma:</b> Bu araç pratik rapor dili için özgün özet/navigasyon sayfasıdır. Dış bağlantılar ilgili resmî PDF kaynaklarına gider;
-    histolojik tip listesi ve zorunlu alanlar için ilgili kaynak kontrol edilmelidir. Herhangi bir mesleki kuruluşla bağlantı/endorsement iddiası taşımaz. Keratinizasyonu not et; ama raporu keratine teslim etme.
+    <b>Hatırlatma:</b> Bu araç pratik rapor dili için özgün eğitim/navigasyon sayfasıdır.
+    Herhangi bir mesleki kuruluşla bağlantı/endorsement iddiası taşımaz. Nihai raporlama için güncel resmi kaynaklar ve WHO sınıflaması ayrıca kontrol edilmelidir. Keratinizasyonu not et; ama raporu keratine teslim etme.
   </div>
 </footer>
 
@@ -524,7 +508,6 @@ const DATA = [
     "group": "Breast",
     "title": "Breast Invasive, Biopsy",
     "date": "June 2026",
-    "href": "https://documents.cap.org/protocols/Breast.Invasive.Bx_1.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -551,7 +534,6 @@ const DATA = [
     "group": "Breast",
     "title": "Breast Invasive, Resection",
     "date": "June 2026",
-    "href": "https://documents.cap.org/protocols/Breast.Invasive.Res_4.11.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -578,7 +560,6 @@ const DATA = [
     "group": "Gynecologic",
     "title": "Uterine Cervix, Excision",
     "date": "March 2023",
-    "href": "https://documents.cap.org/documents/Cervix.Bx_4.4.2.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -609,7 +590,6 @@ const DATA = [
     "group": "Gynecologic",
     "title": "Uterine Cervix, Resection",
     "date": "April 2023",
-    "href": "https://documents.cap.org/documents/Cervix_5.1.1.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -640,7 +620,6 @@ const DATA = [
     "group": "Gynecologic",
     "title": "Vagina, Biopsy",
     "date": "June 2021",
-    "href": "https://documents.cap.org/protocols/Vagina.Bx_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -668,7 +647,6 @@ const DATA = [
     "group": "Gynecologic",
     "title": "Vagina, Resection",
     "date": "November 2021",
-    "href": "https://documents.cap.org/protocols/Vagina_4.3.0.1.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -696,7 +674,6 @@ const DATA = [
     "group": "Gynecologic",
     "title": "Vulva",
     "date": "June 2024",
-    "href": "https://documents.cap.org/protocols/Vulva_5.1.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -727,7 +704,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Anus, Excision",
     "date": "September 2023",
-    "href": "https://documents.cap.org/protocols/Anus.Bx.TDE_5.0.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -756,7 +732,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Anus, Resection",
     "date": "June 2022",
-    "href": "https://documents.cap.org/protocols/Anus_5.0.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -785,7 +760,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Distal Extrahepatic Bile Ducts",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/BileDuctDE_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -813,7 +787,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Small Intestine, Resection",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Small_Int_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -841,7 +814,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Intrahepatic Bile Ducts",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/BileDuctIH_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -869,7 +841,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Colon and Rectum Biomarker Reporting",
     "date": "June 2021",
-    "href": "https://documents.cap.org/protocols/ColoRectal.Bmk_1.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -897,7 +868,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Colon and Rectum, Biopsy",
     "date": "December 2023",
-    "href": "https://documents.cap.org/protocols/ColoRectal.Bx_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -925,7 +895,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Colon & Rectum, Resection",
     "date": "September 2025",
-    "href": "https://documents.cap.org/protocols/ColoRectal_4.4.0.1.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -953,7 +922,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Stomach, Resection",
     "date": "March 2023",
-    "href": "https://documents.cap.org/documents/Stomach_4.4.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -981,7 +949,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Pancreas (Exocrine)",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Panc.Exo_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1009,7 +976,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Perihilar Bile Ducts",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/BileDuctPH_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1037,7 +1003,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Gallbladder",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Gallbladder_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1065,7 +1030,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Ampulla of Vater",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Ampulla_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1093,7 +1057,6 @@ const DATA = [
     "group": "Gastrointestinal",
     "title": "Esophagus",
     "date": "June 2022",
-    "href": "https://documents.cap.org/protocols/Esophagus_4.2.0.1.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
@@ -1124,7 +1087,6 @@ const DATA = [
     "group": "Endocrine and Neuroendocrine",
     "title": "Duodenum and Ampulla NET, Resection",
     "date": "June 2024",
-    "href": "https://documents.cap.org/protocols/DuodAmp.NET_2.0.0.1.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1152,7 +1114,6 @@ const DATA = [
     "group": "Endocrine and Neuroendocrine",
     "title": "Colon and Rectum NET, Resection",
     "date": "December 2023",
-    "href": "https://documents.cap.org/protocols/ColoRectal.NET_5.0.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1180,7 +1141,6 @@ const DATA = [
     "group": "Endocrine and Neuroendocrine",
     "title": "Stomach NET, Resection",
     "date": "December 2023",
-    "href": "https://documents.cap.org/protocols/Stomach.NET_5.0.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1208,7 +1168,6 @@ const DATA = [
     "group": "Endocrine and Neuroendocrine",
     "title": "Pancreas NET, Resection",
     "date": "June 2024",
-    "href": "https://documents.cap.org/protocols/Panc.Endo_5.0.1.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1236,7 +1195,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Kidney, Biopsy",
     "date": "June 2026",
-    "href": "https://documents.cap.org/protocols/Kidney.Bx_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1263,7 +1221,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Kidney, Resection",
     "date": "June 2026",
-    "href": "https://documents.cap.org/protocols/Kidney_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1290,7 +1247,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Urinary Bladder, Biopsy",
     "date": "June 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-June-2025/Bladder.Bx.TURBT_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1319,7 +1275,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Urinary Bladder, Resection",
     "date": "September 2023",
-    "href": "https://documents.cap.org/protocols/Bladder_4.2.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1348,7 +1303,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Penis",
     "date": "September 2023",
-    "href": "https://documents.cap.org/protocols/Penis_4.2.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
@@ -1378,7 +1332,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Prostate Needle Biopsy Case Level",
     "date": "September 2023",
-    "href": "https://documents.cap.org/protocols/Prostate.Needle.Specimen.Bx_1.1.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1405,7 +1358,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Prostate Needle Biopsy Specimen Level",
     "date": "September 2023",
-    "href": "https://documents.cap.org/protocols/Prostate.Needle.Specimen.Bx_1.1.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1432,7 +1384,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Prostate TURP",
     "date": "September 2023",
-    "href": "https://documents.cap.org/protocols/Prostate.TURP_4.2.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1459,7 +1410,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Prostate, Resection",
     "date": "September 2023",
-    "href": "https://documents.cap.org/protocols/Prostate_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1486,7 +1436,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Testis Lymphadenectomy",
     "date": "June 2024",
-    "href": "https://documents.cap.org/protocols/Testis.RPL_4.2.1.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1512,7 +1461,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Testis Orchiectomy",
     "date": "March 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-March-2025/Testis_4.3.0.0.REL.CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1538,7 +1486,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Ureter, Renal Pelvis, Biopsy",
     "date": "March 2025",
-    "href": "https://documents.cap.org/documents/UreterRenalPelvis.Bx_2.4.0.0.REL.CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1567,7 +1514,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Ureter, Renal Pelvis, Resection",
     "date": "March 2025",
-    "href": "https://documents.cap.org/documents/New-Cancer-Protocols-March-2025/UreterRenalPelvis.Res_2.4.0.0.REL.CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1596,7 +1542,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Urethra, Biopsy",
     "date": "December 2024",
-    "href": "https://documents.cap.org/protocols/Urethra.Bx_4.3.0.0.REL.CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1625,7 +1570,6 @@ const DATA = [
     "group": "Genitourinary",
     "title": "Urethra, Resection",
     "date": "December 2024",
-    "href": "https://documents.cap.org/protocols/Urethra_4.3.0.0.REL.CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1654,7 +1598,6 @@ const DATA = [
     "group": "Thorax",
     "title": "Lung Biomarker Reporting",
     "date": "September 2025",
-    "href": "https://documents.cap.org/protocols/Lung.Bmk_2.2.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-yok",
@@ -1662,7 +1605,7 @@ const DATA = [
     "summary": "Bu protokol tanı/grade değil, akciğer biyobelirteç raporlaması içindir. SCC’de özellikle PD-L1 ve tedavi bağlamı için önemlidir.",
     "naming": [
       "Tanısal SCC isimlendirmesi için Lung Resection/Biopsy bağlamı kullanılır.",
-      "Bu PDF biyobelirteç raporlaması içindir."
+      "Bu başlık biyobelirteç raporlaması içindir."
     ],
     "subtypes": [
       "SCC alt tipleri bu protokolün ana konusu değildir."
@@ -1679,7 +1622,6 @@ const DATA = [
     "group": "Thorax",
     "title": "Lung, Resection",
     "date": "September 2025",
-    "href": "https://documents.cap.org/protocols/Lung_5.1.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1710,7 +1652,6 @@ const DATA = [
     "group": "Thorax",
     "title": "Thymus",
     "date": "December 2024",
-    "href": "https://documents.cap.org/protocols/Thymus_5.0.0.0.REL.CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1743,7 +1684,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "Cutaneous Carcinoma",
     "date": "April 2026",
-    "href": "https://documents.cap.org/protocols/HN.Skin_Cutaneous_1.2.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
@@ -1776,7 +1716,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "HPV-Independent Oropharynx and Hypopharynx",
     "date": "April 2026",
-    "href": "https://documents.cap.org/protocols/HN.HPV-Ind_Oropharynx_Hypopharynx_1.0.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1806,7 +1745,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "HPV-Associated Oropharynx",
     "date": "June 2026",
-    "href": "https://documents.cap.org/protocols/HN.HPV-Assoc_Oropharynx.Res_1.1.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -1834,7 +1772,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "Larynx",
     "date": "April 2026",
-    "href": "https://documents.cap.org/protocols/HN.Larynx_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1865,7 +1802,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "Nasal Sinuses and Paranasal Sinuses",
     "date": "April 2026",
-    "href": "https://documents.cap.org/protocols/HN.Nasal_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-sinirli",
@@ -1895,7 +1831,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "Nasopharynx",
     "date": "April 2026",
-    "href": "https://documents.cap.org/protocols/HN.Nasopharynx.Res_1.0.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-onerilmez",
@@ -1925,7 +1860,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "Oral Cavity",
     "date": "April 2026",
-    "href": "https://documents.cap.org/protocols/HN.Oral_4.3.0.0.REL_CAPCP.pdf",
     "status": "scc-var",
     "statusLabel": "SCC var",
     "gradeTag": "grade-core",
@@ -1957,7 +1891,6 @@ const DATA = [
     "group": "Head and Neck",
     "title": "Salivary Gland",
     "date": "April 2026",
-    "href": "https://documents.cap.org/protocols/HN.Salivary.Res_1.0.0.0.REL_CAPCP.pdf",
     "status": "scc-nadir",
     "statusLabel": "SCC nadir / özel",
     "gradeTag": "grade-sinirli",
@@ -1993,10 +1926,8 @@ const els = {
   search: document.getElementById("search"),
   groupName: document.getElementById("groupName"),
   protocolTitle: document.getElementById("protocolTitle"),
-  pdfLink: document.getElementById("pdfLink"),
   summary: document.getElementById("summary"),
   badges: document.getElementById("badges"),
-  pdfMeta: document.getElementById("pdfMeta"),
   naming: document.getElementById("naming"),
   subtypes: document.getElementById("subtypes"),
   grading: document.getElementById("grading"),
@@ -2132,7 +2063,7 @@ function renderQuick(item) {
   if (item.gradeTag === "grade-sinirli") quick.push("Grade verilebilir ama organ biyolojisi veya başka parametreler daha belirleyici olabilir.");
   if (item.gradeTag === "grade-onerilmez") quick.push("Formal grade klinik mesajı bozabilir veya önerilmez.");
   if (item.hpv) quick.push("HPV/p16 ekseni isimlendirme ve biyoloji açısından önemlidir.");
-  quick.push("PDF bağlantısı ilgili resmî protokol dosyasına gider; son karar için ilgili PDF içindeki histolojik tip ve core/non-core alanları kontrol et.");
+  quick.push("Son karar için ilgili organın güncel resmi raporlama kaynakları ve WHO sınıflaması ayrıca kontrol edilmeli.");
   fillList(els.quick, quick);
 }
 
@@ -2140,9 +2071,7 @@ function renderMain() {
   const item = DATA.find(x => x.id === state.activeId) || DATA[0];
   els.groupName.textContent = item.group;
   els.protocolTitle.textContent = item.title;
-  els.pdfLink.href = item.href;
   els.summary.textContent = item.summary;
-  els.pdfMeta.textContent = `PDF tarihi: ${item.date} · Kaynak grup: ${item.group}`;
   fillList(els.naming, item.naming);
   fillList(els.subtypes, item.subtypes);
   fillList(els.grading, item.grading);
