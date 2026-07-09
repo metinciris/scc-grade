@@ -18,8 +18,9 @@
     --warn:#b26a00;
     --bad:#b42318;
     --none:#687385;
-    --shadow:0 18px 55px rgba(18, 29, 54, .10);
+    --shadow:0 18px 55px rgba(12, 21, 41, .10);
     --radius:18px;
+    --item-radius:12px;
   }
 
   body.dark {
@@ -49,6 +50,8 @@
       var(--bg);
     color:var(--text);
     min-height:100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   header {
@@ -95,6 +98,8 @@
 
   button {
     font:inherit;
+    border: none;
+    cursor: pointer;
   }
 
   .theme-btn, .small-btn {
@@ -103,7 +108,6 @@
     color:var(--text);
     border-radius:999px;
     padding:9px 12px;
-    cursor:pointer;
   }
 
   .theme-btn:hover, .small-btn:hover {
@@ -117,6 +121,7 @@
     display:grid;
     grid-template-columns: 380px minmax(0, 1fr);
     gap:18px;
+    flex: 1;
   }
 
   aside {
@@ -136,7 +141,7 @@
     border:1px solid var(--line);
     background:var(--panel2);
     color:var(--text);
-    border-radius:14px;
+    border-radius:var(--item-radius);
     padding:12px 13px;
     outline:none;
     margin-bottom:10px;
@@ -160,7 +165,6 @@
     color:var(--muted);
     border-radius:999px;
     padding:7px 10px;
-    cursor:pointer;
     font-size:12px;
   }
 
@@ -211,15 +215,15 @@
     border:1px solid transparent;
     background:transparent;
     color:var(--text);
-    padding:9px;
-    border-radius:12px;
-    cursor:pointer;
+    padding:10px;
+    border-radius:var(--item-radius);
     text-align:left;
-    display:grid;
-    grid-template-columns: 1fr auto;
-    gap:8px;
-    align-items:start;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    justify-content: start;
     margin:2px 0;
+    transition: background 0.15s, border-color 0.15s;
   }
 
   .nav-item:hover {
@@ -231,17 +235,26 @@
     background: color-mix(in srgb, var(--accent) 12%, var(--panel));
   }
 
+  .nav-item-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: var(--panel2);
+    border: 1px solid var(--line);
+  }
+
+  .nav-item-content {
+    flex-grow: 1;
+  }
+
   .nav-title {
     font-size:13.5px;
     line-height:1.35;
     font-weight:650;
-  }
-
-  .nav-date {
-    display:block;
-    color:var(--muted);
-    font-size:11.5px;
-    margin-top:3px;
   }
 
   .pill {
@@ -253,6 +266,7 @@
     font-size:11px;
     border:1px solid var(--line);
     color:var(--muted);
+    align-self: center;
   }
 
   .pill.scc-var { color:var(--good); border-color:color-mix(in srgb, var(--good) 45%, transparent); }
@@ -385,7 +399,6 @@
     color:var(--text);
     border-radius:10px;
     padding:6px 8px;
-    cursor:pointer;
     font-size:12px;
   }
 
@@ -398,7 +411,7 @@
 
   footer {
     max-width:1560px;
-    margin:0 auto 26px;
+    margin:18px auto 26px;
     padding:0 18px;
   }
 
@@ -410,6 +423,7 @@
     color:var(--muted);
     font-size:13px;
     line-height:1.7;
+    text-align: center;
   }
 
   .hidden { display:none !important; }
@@ -425,7 +439,6 @@
 </style>
 </head>
 <body>
-<!-- Yayın notu: Bu sayfa özgün bir eğitim aracıdır; herhangi bir mesleki kuruluşla bağlantı veya onay iddiası taşımaz. -->
 <header>
   <div class="head-inner">
     <div>
@@ -503,7 +516,19 @@
 </footer>
 
 <script>
+// Organ sistemleri için ikon haritası (data URI formatında monochrome SVG'ler)
+const GROUP_ICONS = {
+  "Breast": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23687385' d='M12.3 22h-.6c-1 0-2-.4-2.8-1.2C5.7 17.6 3 13.9 3 10.5 3 6.9 5.9 4 9.5 4c1.7 0 3.3.6 4.5 1.7.4.3.5.7.3 1.1-.2.4-.6.6-1 .5h-.3c-.8-.2-1.6-.3-2.5-.3C7 7 5 9 5 11.5c0 2.2 1.8 5.2 4 8 2 2.6 3.7 3.6 4.1 3.8.3.1.6.1.8 0 .4-.2 2.1-1.2 4.1-3.8 2.2-2.8 4-5.8 4-8C22 9 20 7 17.5 7h-.3c-1 0-1.9.4-2.7 1.2-.3.3-.8.3-1.1 0-.3-.3-.3-.8 0-1.1C14.7 5.7 16.3 5 17.8 5c3.6 0 6.5 2.9 6.5 6.5 0 3.4-2.7 7.1-5.9 10.3-.8.8-1.8 1.2-2.8 1.2h-.3c-1.1 0-2.2-.4-3-1.2-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0c.3.3.7.5 1 .5h.3c.7 0 1.5-.3 2-.9.5-.6 2.3-3.4 2.3-5.3-.2-.1-.5-.1-.7-.1zm1.2-13c-.3-.2-.3-.5-.1-.8.2-.3.5-.3.8-.1.3.2.3.5.1.8-.2.3-.5.3-.8.1z'/%3E%3C/svg%3E",
+  "Gynecologic": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23687385' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12.83V6a1 1 0 0 1 2 0v1.17c1.7.35 3 1.83 3 3.61 0 1.34-.73 2.51-1.83 3.2l.9 1.55c.23.41.08.92-.32 1.15-.4.23-.92.08-1.15-.32L12 14.5l-1.6 2.76c-.23.41-.74.56-1.15.33a.87.87 0 0 1-.32-1.15l.9-1.55a3.83 3.83 0 0 1-1.83-3.2c0-1.78 1.3-3.26 3-3.61z'/%3E%3C/svg%3E",
+  "Gastrointestinal": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23687385' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.92c-.34-.05-.67-.11-1-.18v.11c-.34-.14-.66-.31-.96-.5-.33-.2-.64-.42-.92-.66a10.02 10.02 0 0 1-1.42-1.5c-.32-.4-.6-.82-.84-1.27-.2-.36-.37-.73-.52-1.12a9.66 9.66 0 0 1-.36-1.22c-.09-.43-.13-.88-.13-1.33A5.84 5.84 0 0 1 7.2 6.5C8.03 5.56 9.08 5 10.2 5a3.67 3.67 0 0 1 1.7.43A3.67 3.67 0 0 1 13.6 5c1.12 0 2.17.56 3 1.5.83.94 1.25 2.1 1.25 3.33s-.42 2.39-1.25 3.33c-.83.94-1.88 1.5-3 1.5-.2 0-.39-.02-.57-.06a4 4 0 0 1-1.03.62c-.22.1-.46.18-.7.25-.33-.07-.66-.14-1-.18-.34.05-.67.11-1 .18-.34-.05-.67-.11-1-.18a3.67 3.67 0 0 0 1.7-.43zM10.2 6.5C9.64 6.5 9.17 6.81 8.8 7.2c-.37.39-.55 1-.55 1.63S8.43 9.94 8.8 10.3c.37.39.84.7 1.4.7.56 0 1.03-.31 1.4-.7s.55-1 .55-1.63-.18-1.24-.55-1.63c-.37-.39-.84-.7-1.4-.7zm3.4 0c-.56 0-1.03.31-1.4.7-.37.39-.55 1-.55 1.63S11.83 9.94 12.2 10.3c.37.39.84.7 1.4.7.56 0 1.03-.31 1.4-.7s.55-1 .55-1.63-.18-1.24-.55-1.63c-.37-.39-.84-.7-1.4-.7z'/%3E%3C/svg%3E",
+  "Genitourinary": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23687385' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14v2h-2v-2h2zm-1.83-8.67a1 1 0 0 1 1.66 0l4 6a1 1 0 1 1-1.66 1.11L12 9.5l-3.17 5.94a1 1 0 1 1-1.66-1.11zM11 6a1 1 0 0 1 2 0v1a1 1 0 0 1-2 0zm3.2 4.14a1 1 0 1 1 1.6 1.2 3.66 3.66 0 0 1-2.43 1.15L12 14.5a3.66 3.66 0 0 1 2.43-1.15a1 1 0 0 1 1.6-1.2zM9.8 11.34a1 1 0 1 1 1.6 1.2A3.66 3.66 0 0 1 12 14.5a3.66 3.66 0 0 1 2.43-1.15a1 1 0 1 1 1.6-1.2z'/%3E%3C/svg%3E",
+  "Thorax": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23687385' d='M12 2c-.1 0-.1.1-.1.1C6.7 4.2 3 8 3 11c0 2.2 1.8 4 4 4a3.8 3.8 0 0 0 2.8-1.2l1.1-1.1 1.1 1.1a3.8 3.8 0 0 0 2.8 1.2c2.2 0 4-1.8 4-4 0-3-3.7-6.8-8.9-8.9-.1 0-.1-.1-.1-.1zM8 11c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm8 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z'/%3E%3C/svg%3E",
+  "Head and Neck": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23687385' d='M12 2c-.1 0-.1.1-.1.1-4.7 3.3-6.9 6.7-6.9 10c0 4.1 3.2 7.5 7 7.5s7-3.4 7-7.5c0-3.3-2.2-6.7-6.9-10-.1 0-.1-.1-.1-.1zM12 16.5c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5z'/%3E%3C/svg%3E",
+};
+
+// ... Veri yapısı ve diğer JS fonksiyonları aynı kalacak ...
 const DATA = [
+  // ... Veri dizisi aynı ...
   {
     "group": "Breast",
     "title": "Breast",
@@ -1447,6 +1472,7 @@ function filteredData() {
   });
 }
 
+// Navigasyon menüsünü oluşturan fonksiyon
 function renderNav() {
   const items = filteredData();
   const grouped = new Map();
@@ -1471,11 +1497,18 @@ function renderNav() {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "nav-item" + (item.id === state.activeId ? " active" : "");
+      
+      // Organ grubu ikonunu al veya varsayılan (GI) kullan
+      const iconSvg = GROUP_ICONS[item.group] || GROUP_ICONS["Gastrointestinal"];
+
+      // İkon, başlık ve durum pill'ini ekle
       btn.innerHTML = `
-        <span>
+        <div class="nav-item-icon">
+          <img src="${iconSvg}" alt="${item.group} ikonu" width="24" height="24" />
+        </div>
+        <div class="nav-item-content">
           <span class="nav-title">${escapeHtml(item.title)}</span>
-          
-        </span>
+        </div>
         <span class="pill ${statusClass(item)}">${item.statusLabel.replace(" / odak dışı","")}</span>
       `;
       btn.onclick = () => {
